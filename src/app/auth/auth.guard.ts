@@ -4,13 +4,16 @@ import {
   CanActivate,
   RouterStateSnapshot,
   UrlTree,
+  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-
+import { map, take } from 'rxjs';
+import { AuthService } from './service/auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  constructor(private authSrv: AuthService, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -19,6 +22,17 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return true;
+    return this.authSrv.user$.pipe(
+      take(1),
+      map((utente) => {
+        if (utente) {
+          return true;
+        }
+        alert(
+          'Per visualizzare questa risorsa devi essere loggato!\nAccedi o registrati'
+        );
+        return this.router.createUrlTree(['/login']);
+      })
+    );
   }
 }

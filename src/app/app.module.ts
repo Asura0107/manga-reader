@@ -12,6 +12,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FavoriteComponent } from './components/favorite/favorite.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { TokenInterceptor } from './auth/token.interceptor';
 const routes: Route[] = [
   {
     path: '',
@@ -65,7 +66,13 @@ const routes: Route[] = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
