@@ -9,7 +9,10 @@
             <p>Summary</p>
             <p>{{ first.description }}</p>
           </div>
-          <p>{{ first.genre }}</p>
+          <div class="d-flex">
+            <p class="genre me-2">Genre:</p>
+            <p class="text-white">{{ first.genre }}</p>
+          </div>
         </div>
       </div>
       <div class="container popular mt-4">
@@ -28,13 +31,42 @@
           </div>
         </div>
       </div>
+      <div class="reccomended container mt-4">
+        <h4 class="text-white mt-2">Reccomended</h4>
+        <hr />
+        <div class="row">
+          <div *ngFor="let reccomended of reccomended" class="col-6 d-flex">
+            <img src="{{ reccomended.cover }}" alt="manga img" class="p-2" />
+            <div class="text-start">
+              <p class="text-white mt-2">{{ reccomended.title }}</p>
+              <div>
+                <ul>
+                  <li
+                    *ngFor="let chapter of getFirstThreeChapters(reccomended)"
+                    class="chapter"
+                  >
+                    {{ chapter.title }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="secondDiv text-white ms-3">
-      <h4>Top</h4>
+      <h4 class="mt-2 p-2">Top</h4>
+      <hr />
       <div *ngFor="let second of second" class="d-flex mb-4">
-        <img src="{{ second.cover }}" alt="" />
-        <div>
-          <p>{{ second.title }}</p>
+        <img src="{{ second.cover }}" alt="" class="p-2" />
+        <div class="p-2">
+          <p class="text-truncate title">
+            {{ second.title }}
+          </p>
+          <div class="d-flex">
+            <p class="genre me-2">Genre:</p>
+            <p class="text-white">{{ second.genre }}</p>
+          </div>
         </div>
         <hr />
       </div>

@@ -20,6 +20,9 @@
 .secondDiv {
   background-color: #222222;
   margin-top: 100px;
+  max-width: 320px;
+  text-align: left;
+  height: 720px;
 }
 .secondDiv img {
   width: 70px;
@@ -36,8 +39,25 @@
     height: 230px;
   }
 }
+.reccomended {
+  background-color: #222222;
+  h4 {
+    text-align: left;
+  }
+  img {
+    width: 110px;
+    height: auto;
+  }
+}
 .genre {
   color: rgb(149, 152, 142);
+}
+.title {
+  max-width: 220px;
+}
+.chapter {
+  color: rgb(149, 152, 142);
+  margin-bottom: 2px;
 }
 hr {
   color: white;

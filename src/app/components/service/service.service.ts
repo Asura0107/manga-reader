@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthData } from 'src/app/auth/auth-data';
 import { Observable, map } from 'rxjs';
 import { Page } from '../models/page';
+import { Chapter } from '../models/chapter';
 @Injectable({
   providedIn: 'root',
 })
@@ -62,5 +63,11 @@ export class ServiceService {
     return this.http
       .get<Page<Manga>>(`${this.apiURL}/manga`, { params })
       .pipe(map((list) => list.content));
+  }
+  getChapters(title: string) {
+    const params = new HttpParams().set('title', title);
+    return this.http.get<Chapter[]>(`${this.apiURL}/manga/chapters`, {
+      params,
+    });
   }
 }
