@@ -4,11 +4,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { BehaviorSubject, throwError, tap, catchError } from 'rxjs';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  jwtHelper = new JwtHelperService();
   apiURL = environment.apiURL;
   private authSubj = new BehaviorSubject<null | AuthData>(null);
   user$ = this.authSubj.asObservable();
@@ -63,5 +64,18 @@ export class AuthService {
     this.authSubj.next(null);
     localStorage.removeItem('user');
     this.router.navigate(['/']);
+  }
+  restore() {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    const userData: AuthData = JSON.parse(user);
+    if (this.jwtHelper.isTokenExpired(userData.accessToken)) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.authSubj.next(userData);
   }
 }

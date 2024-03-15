@@ -1,1 +1,24 @@
-<p>home works!</p>
+<div class="container">
+  <div class="d-flex">
+    <div class="d-flex firstDiv">
+      <img src="{{ first.cover }}" alt="manga img" class="p-3" />
+      <div class="text-white p-3">
+        <h3 class="mb-2">{{ first.title }}</h3>
+        <div>
+          <p>Summary</p>
+          <p>{{ first.description }}</p>
+        </div>
+        <p>{{ first.genre }}</p>
+      </div>
+    </div>
+    <div class="secondDiv text-white ms-3">
+      <h4>Top</h4>
+      <div *ngFor="let second of second" class="d-flex">
+        <img src="{{ second.cover }}" alt="" />
+        <div>
+          <p>{{ second.title }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

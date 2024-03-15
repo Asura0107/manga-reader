@@ -47,7 +47,7 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="utente">
             <a
               class="nav-link active"
               [routerLink]="['/']"
@@ -56,7 +56,7 @@
               >Home</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="utente">
             <a
               class="nav-link"
               [routerLink]="['/pay']"
@@ -64,7 +64,7 @@
               >VVIP</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="utente">
             <a
               class="nav-link"
               [routerLink]="['/favorite']"
@@ -72,7 +72,7 @@
               >My List</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!utente">
             <a
               class="nav-link"
               [routerLink]="['/register']"
@@ -81,6 +81,9 @@
             >
           </li>
         </ul>
+        <div *ngIf="utente">
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </div>
       </div>
     </div>
   </div>
