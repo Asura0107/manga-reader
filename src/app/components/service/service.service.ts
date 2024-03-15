@@ -57,4 +57,10 @@ export class ServiceService {
       })
     );
   }
+  getByTitle(title: string): Observable<Manga[]> {
+    const params = new HttpParams().set('title', title);
+    return this.http
+      .get<Page<Manga>>(`${this.apiURL}/manga`, { params })
+      .pipe(map((list) => list.content));
+  }
 }

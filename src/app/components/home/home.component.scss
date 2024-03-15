@@ -1,18 +1,20 @@
-.firstDiv {
+.banner {
   background-color: #222222;
   margin-top: 100px;
   height: 300px;
-
   p {
     text-align: left;
   }
   h3 {
     text-align: left;
   }
+  img {
+    width: 230px;
+    height: auto;
+  }
 }
-.firstDiv img {
-  width: 300px;
-  height: auto;
+.firstDiv {
+  flex-direction: column;
 }
 
 .secondDiv {
@@ -22,4 +24,21 @@
 .secondDiv img {
   width: 70px;
   height: auto;
+}
+.popular {
+  background-color: #222222;
+
+  h4 {
+    text-align: left;
+  }
+  img {
+    width: 100%;
+    height: 230px;
+  }
+}
+.genre {
+  color: rgb(149, 152, 142);
+}
+hr {
+  color: white;
 }

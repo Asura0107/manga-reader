@@ -1,23 +1,42 @@
 <div class="container">
   <div class="d-flex">
     <div class="d-flex firstDiv">
-      <img src="{{ first.cover }}" alt="manga img" class="p-3" />
-      <div class="text-white p-3">
-        <h3 class="mb-2">{{ first.title }}</h3>
-        <div>
-          <p>Summary</p>
-          <p>{{ first.description }}</p>
+      <div class="banner d-flex">
+        <img src="{{ first.cover }}" alt="manga img" class="p-3" />
+        <div class="text-white p-3">
+          <h3 class="mb-2">{{ first.title }}</h3>
+          <div>
+            <p>Summary</p>
+            <p>{{ first.description }}</p>
+          </div>
+          <p>{{ first.genre }}</p>
         </div>
-        <p>{{ first.genre }}</p>
+      </div>
+      <div class="container popular mt-4">
+        <h4 class="text-white mt-2">Too good to miss</h4>
+        <hr />
+        <div class="row">
+          <div *ngFor="let popular of popular" class="col">
+            <img src="{{ popular.cover }}" alt="manga img" />
+            <div class="text-start">
+              <p class="text-white mt-2">{{ popular.title }}</p>
+              <div class="d-flex">
+                <p class="genre me-2">Genre:</p>
+                <p class="text-white">{{ popular.genre }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="secondDiv text-white ms-3">
       <h4>Top</h4>
-      <div *ngFor="let second of second" class="d-flex">
+      <div *ngFor="let second of second" class="d-flex mb-4">
         <img src="{{ second.cover }}" alt="" />
         <div>
           <p>{{ second.title }}</p>
         </div>
+        <hr />
       </div>
     </div>
   </div>
