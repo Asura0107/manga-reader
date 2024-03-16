@@ -2,9 +2,16 @@
   <div class="d-flex">
     <div class="d-flex firstDiv">
       <div class="banner d-flex">
-        <img src="{{ first.cover }}" alt="manga img" class="p-3" />
+        <img
+          src="{{ first.cover }}"
+          alt="manga img"
+          class="p-3"
+          (click)="getSingleManga(first.id)"
+        />
         <div class="text-white p-3">
-          <h3 class="mb-2">{{ first.title }}</h3>
+          <h3 class="mb-2" (click)="getSingleManga(first.id)">
+            {{ first.title }}
+          </h3>
           <div>
             <p>Summary</p>
             <p>{{ first.description }}</p>
@@ -20,9 +27,15 @@
         <hr />
         <div class="row">
           <div *ngFor="let popular of popular" class="col">
-            <img src="{{ popular.cover }}" alt="manga img" />
+            <img
+              src="{{ popular.cover }}"
+              alt="manga img"
+              (click)="getSingleManga(popular.id)"
+            />
             <div class="text-start">
-              <p class="text-white mt-2">{{ popular.title }}</p>
+              <p class="text-white mt-2" (click)="getSingleManga(popular.id)">
+                {{ popular.title }}
+              </p>
               <div class="d-flex">
                 <p class="genre me-2">Genre:</p>
                 <p class="text-white">{{ popular.genre }}</p>
@@ -36,9 +49,19 @@
         <hr />
         <div class="row">
           <div *ngFor="let reccomended of reccomended" class="col-6 d-flex">
-            <img src="{{ reccomended.cover }}" alt="manga img" class="p-2" />
+            <img
+              src="{{ reccomended.cover }}"
+              alt="manga img"
+              class="p-2"
+              (click)="getSingleManga(reccomended.id)"
+            />
             <div class="text-start">
-              <p class="text-white mt-2">{{ reccomended.title }}</p>
+              <p
+                class="text-white mt-2"
+                (click)="getSingleManga(reccomended.id)"
+              >
+                {{ reccomended.title }}
+              </p>
               <div>
                 <ul>
                   <li

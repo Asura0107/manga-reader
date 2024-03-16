@@ -1,0 +1,23 @@
+.profilo {
+  margin-top: 150px;
+  background-color: #222222;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+  }
+  .divPoint {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(59, 173, 59);
+    width: 50%;
+    p {
+      margin: auto;
+    }
+  }
+}

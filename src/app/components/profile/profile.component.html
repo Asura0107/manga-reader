@@ -1,0 +1,14 @@
+<div *ngIf="utente" class="profilo justify-content-center">
+  <div class="p-5">
+    <img src="{{ utente.avatar }}" alt="avatar" />
+    <div class="mt-3">
+      <p class="text-white">{{ utente.name }}</p>
+      <p class="text-white">{{ utente.surname }}</p>
+      <p class="text-white">{{ utente.username }}</p>
+      <p class="text-white">{{ utente.email }}</p>
+      <div class="border border-success-subtle divPoint">
+        <p class="text-white">{{ utente.points }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FavoriteComponent } from './components/favorite/favorite.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { ProfileComponent } from './components/profile/profile.component';
 const routes: Route[] = [
   {
     path: '',
@@ -21,6 +22,10 @@ const routes: Route[] = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   },
   {
     path: 'register',
@@ -58,6 +63,7 @@ const routes: Route[] = [
     HomeComponent,
     FavoriteComponent,
     SignupComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

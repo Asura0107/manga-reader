@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/service/auth.service';
 import { AuthData } from 'src/app/auth/auth-data';
 import { take } from 'rxjs';
 import { Chapter } from '../models/chapter';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,7 +25,11 @@ export class HomeComponent implements OnInit {
     'Nano Machine',
   ];
   popular: Manga[] = [];
-  constructor(private service: ServiceService, private authSrv: AuthService) {}
+  constructor(
+    private service: ServiceService,
+    private authSrv: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getallManga();
@@ -81,5 +86,12 @@ export class HomeComponent implements OnInit {
       (item) => item.title === manga.title
     );
     return this.chapter[index];
+  }
+
+  getSingleManga(id: number) {
+    this.service.getMangaSingolo(id).subscribe((it) => {
+      this.router.navigate(['/manga', id]);
+      console.log(it);
+    });
   }
 }
