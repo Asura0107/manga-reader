@@ -14,6 +14,7 @@ import { FavoriteComponent } from './components/favorite/favorite.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ComicsComponent } from './components/comics/comics.component';
 const routes: Route[] = [
   {
     path: '',
@@ -26,6 +27,10 @@ const routes: Route[] = [
   {
     path: 'profile',
     component: ProfileComponent,
+  },
+  {
+    path: 'comics',
+    component: ComicsComponent,
   },
   {
     path: 'register',
@@ -64,6 +69,7 @@ const routes: Route[] = [
     FavoriteComponent,
     SignupComponent,
     ProfileComponent,
+    ComicsComponent,
   ],
   imports: [
     BrowserModule,
