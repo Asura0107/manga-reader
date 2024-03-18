@@ -25,6 +25,39 @@ export class ServiceService {
       .get<Page<Manga>>(`${this.apiURL}/manga/all`, { params })
       .pipe(map((list) => list.content));
   }
+
+  next(page: number): Observable<Manga[]> {
+    const params = new HttpParams().set('page', page.toString());
+    this.currentPage = page + 1; // Memorizza la pagina corrente
+    return this.http
+      .get<Page<Manga>>(`${this.apiURL}/manga/all`, { params })
+      .pipe(map((list) => list.content));
+  }
+
+  previous(page: number): Observable<Manga[]> {
+    const params = new HttpParams().set('page', page.toString());
+    this.currentPage = page - 1; // Memorizza la pagina corrente
+    return this.http
+      .get<Page<Manga>>(`${this.apiURL}/manga/all`, { params })
+      .pipe(map((list) => list.content));
+  }
+
+  existNextPage(): Observable<boolean> {
+    return this.http.get<Page<Manga>>(`${this.apiURL}/manga/all`).pipe(
+      map((list) => {
+        return list.number > this.currentPage + 1;
+      })
+    );
+  }
+
+  existPreviousPage(): Observable<boolean> {
+    return this.http.get<Page<Manga>>(`${this.apiURL}/manga/all`).pipe(
+      map((list) => {
+        return 0 < this.currentPage - 1;
+      })
+    );
+  }
+
   getTopFive(): Observable<Manga[]> {
     const params = new HttpParams().set('orderBy', 'likes');
     return this.http
@@ -39,15 +72,19 @@ export class ServiceService {
         })
       );
   }
+
   getMangaId() {
     return this.manga.id;
   }
+
   getMangaSingolo(id: number) {
     return this.http.get<Manga>(`${this.apiURL}/manga/${id}`);
   }
+
   getMangaByGenre(genre: string) {
     return this.http.get<Manga[]>(`${this.apiURL}/manga/genre?genre=${genre}`);
   }
+
   getMangaRandom() {
     return this.http.get<Page<Manga>>(`${this.apiURL}/manga/all`).pipe(
       map((mangaList) => {
@@ -58,12 +95,14 @@ export class ServiceService {
       })
     );
   }
+
   getByTitle(title: string): Observable<Manga[]> {
     const params = new HttpParams().set('title', title);
     return this.http
       .get<Page<Manga>>(`${this.apiURL}/manga`, { params })
       .pipe(map((list) => list.content));
   }
+
   getChapters(title: string) {
     const params = new HttpParams().set('title', title);
     return this.http.get<Chapter[]>(`${this.apiURL}/manga/chapters`, {
