@@ -109,4 +109,10 @@ export class ServiceService {
       params,
     });
   }
+
+  getChaptersManga(id: number): Observable<Chapter[]> {
+    return this.http
+      .get<Manga>(`${this.apiURL}/manga/${id}`)
+      .pipe(map((data) => data.chapters));
+  }
 }

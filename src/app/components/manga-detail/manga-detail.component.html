@@ -1,1 +1,76 @@
-<p>manga-detail works!</p>
+<div class="container">
+  <div class="d-flex row">
+    <div class="d-flex firstDiv col-8">
+      <div class="banner d-flex">
+        <div class="d-flex flex-column">
+          <img src="{{ manga.cover }}" alt="manga img" class="p-3" />
+          <button class="m-3">Bookmark</button>
+        </div>
+        <div class="text-white p-3">
+          <h3 class="mb-2">
+            {{ manga.title }}
+          </h3>
+          <div>
+            <p>Summary</p>
+            <p>{{ manga.description }}</p>
+          </div>
+          <div class="d-flex">
+            <p class="genre me-2">Genre:</p>
+            <p class="text-white">{{ manga.genre }}</p>
+          </div>
+          <div class="d-flex">
+            <p class="genre me-2">Status:</p>
+            <p class="text-white" *ngIf="manga.id !== 5; else complete">
+              Ongoing
+            </p>
+            <ng-template #complete class="text-white">Complete</ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="chapter mt-4 container">
+        <h5 class="mt-2">Chapter {{ manga.title }}</h5>
+        <hr />
+        <div class="chapterScroll">
+          <div
+            class="d-flex align-items-baseline chapterTitle border border-white p-2"
+            *ngFor="let chapter of chapters"
+          >
+            <p>{{ chapter.title }}</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-file-lock2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 5a1 1 0 0 1 1 1v1H7V6a1 1 0 0 1 1-1m2 2.076V6a2 2 0 1 0-4 0v1.076c-.54.166-1 .597-1 1.224v2.4c0 .816.781 1.3 1.5 1.3h3c.719 0 1.5-.484 1.5-1.3V8.3c0-.627-.46-1.058-1-1.224"
+              />
+              <path
+                d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="secondDiv text-white ms-3 col-3">
+      <h4 class="mt-2 p-2">Top</h4>
+      <hr />
+      <div *ngFor="let second of second" class="d-flex mb-4">
+        <img src="{{ second.cover }}" alt="" class="p-2" />
+        <div class="p-2">
+          <p class="title">
+            {{ second.title }}
+          </p>
+          <div class="d-flex">
+            <p class="genre me-2">Genre:</p>
+            <p class="text-white">{{ second.genre }}</p>
+          </div>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </div>
+</div>
