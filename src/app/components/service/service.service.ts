@@ -7,6 +7,7 @@ import { AuthData } from 'src/app/auth/auth-data';
 import { Observable, map } from 'rxjs';
 import { Page } from '../models/page';
 import { Chapter } from '../models/chapter';
+import { Comment } from '../models/comment';
 @Injectable({
   providedIn: 'root',
 })
@@ -114,5 +115,10 @@ export class ServiceService {
     return this.http
       .get<Manga>(`${this.apiURL}/manga/${id}`)
       .pipe(map((data) => data.chapters));
+  }
+
+  getComments(title: string): Observable<Comment[]> {
+    const params = new HttpParams().set('title', title);
+    return this.http.get<Comment[]>(`${this.apiURL}/comments`, { params });
   }
 }

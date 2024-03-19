@@ -12,6 +12,9 @@
     width: 230px;
     height: auto;
   }
+  button {
+    background-color: #d7ee65;
+  }
 }
 .firstDiv {
   flex-direction: column;
@@ -34,19 +37,36 @@
   background-color: #222222;
 
   .chapterScroll {
-    height: 400px;
+    height: 300px;
     overflow: auto;
+    div {
+      border: solid 1px #9b9d9e;
+      border-radius: 20px;
+      p {
+        margin-bottom: 0;
+      }
+    }
   }
-  h5 {
-    text-align: left;
-    color: white;
-  }
+
   .chapterTitle {
     justify-content: space-between;
 
     p {
       color: white;
     }
+  }
+}
+.comments {
+  background-color: #222222;
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .leaveComment {
+    width: 100%;
   }
 }
 hr {
@@ -57,4 +77,15 @@ img {
 }
 svg {
   color: white;
+}
+h5 {
+  text-align: left;
+  color: white;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 1px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
 }
