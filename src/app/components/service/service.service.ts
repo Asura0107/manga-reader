@@ -15,6 +15,7 @@ export class ServiceService {
   apiURL = environment.apiURL;
   manga!: Manga;
   currentPage = 0;
+  pageFavorite = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -104,6 +105,7 @@ export class ServiceService {
       .pipe(map((list) => list.content));
   }
 
+  //chapter
   getChapters(title: string) {
     const params = new HttpParams().set('title', title);
     return this.http.get<Chapter[]>(`${this.apiURL}/manga/chapters`, {
@@ -117,8 +119,47 @@ export class ServiceService {
       .pipe(map((data) => data.chapters));
   }
 
+  getChapterSingolo(id: number) {
+    return this.http.get<Chapter>(`${this.apiURL}/chapter/${id}`);
+  }
+
+  //comments
   getComments(title: string): Observable<Comment[]> {
     const params = new HttpParams().set('title', title);
     return this.http.get<Comment[]>(`${this.apiURL}/comments`, { params });
+  }
+
+  postComment(data: Partial<Comment>, mangaId: number): Observable<Comment> {
+    const params = new HttpParams().set('mangaId', mangaId.toString());
+    return this.http.post<Comment>(`${this.apiURL}/comments`, data, { params });
+  }
+
+  //favorite
+  getFavorite(page: number = 0): Observable<Favorite[]> {
+    const params = new HttpParams().set('page', page.toString());
+    this.pageFavorite = page;
+    return this.http
+      .get<Page<Favorite>>(`${this.apiURL}/favorites/my-favorite`, { params })
+      .pipe(map((list) => list.content));
+  }
+
+  nextFavorite(page: number): Observable<Favorite[]> {
+    const params = new HttpParams().set('page', page.toString());
+    this.pageFavorite = page + 1; // Memorizza la pagina corrente
+    return this.http
+      .get<Page<Favorite>>(`${this.apiURL}/favorites/my-favorite`, { params })
+      .pipe(map((list) => list.content));
+  }
+
+  previousFavorite(page: number): Observable<Favorite[]> {
+    const params = new HttpParams().set('page', page.toString());
+    this.pageFavorite = page - 1; // Memorizza la pagina corrente
+    return this.http
+      .get<Page<Favorite>>(`${this.apiURL}/favorites/my-favorite`, { params })
+      .pipe(map((list) => list.content));
+  }
+
+  saveFavorite(data: { manga: number; user: string }): Observable<Favorite> {
+    return this.http.post<Favorite>(`${this.apiURL}/favorites`, data);
   }
 }

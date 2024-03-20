@@ -9,6 +9,7 @@ import { User } from '../models/user';
 import { AuthData } from 'src/app/auth/auth-data';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Comment } from '../models/comment';
+import { Favorite } from '../models/favorite';
 @Component({
   selector: 'app-manga-detail',
   templateUrl: './manga-detail.component.html',
@@ -20,6 +21,7 @@ export class MangaDetailComponent implements OnInit {
   second: Manga[] = [];
   chapters: Chapter[] = [];
   utente!: User;
+  content: string = '';
 
   constructor(
     private service: ServiceService,
@@ -66,6 +68,41 @@ export class MangaDetailComponent implements OnInit {
     this.service.getComments(title).subscribe((data) => {
       this.comments = data;
       console.log(this.comments);
+    });
+  }
+
+  postComment(mangaId: number) {
+    if (this.utente) {
+      const newComment = {
+        user: this.utente.id,
+        content: this.content,
+      };
+      this.service.postComment(newComment, mangaId).subscribe(
+        (comment) => {
+          console.log(comment);
+          this.getComments(this.manga.title);
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+    }
+  }
+
+  bookmark() {
+    if (this.utente) {
+      const data = {
+        manga: this.manga.id,
+        user: this.utente.id,
+      };
+      this.service.saveFavorite(data).subscribe();
+    }
+  }
+
+  getChapterSingle(id: number) {
+    this.service.getChapterSingolo(id).subscribe((it) => {
+      this.route.navigate(['/chapter', id]);
+      console.log(it);
     });
   }
 }
