@@ -8,6 +8,7 @@ import { Observable, map } from 'rxjs';
 import { Page } from '../models/page';
 import { Chapter } from '../models/chapter';
 import { Comment } from '../models/comment';
+import { Panel } from '../models/panel';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +17,7 @@ export class ServiceService {
   manga!: Manga;
   currentPage = 0;
   pageFavorite = 0;
+  currentChapter = null;
 
   constructor(private http: HttpClient) {}
 
@@ -121,6 +123,20 @@ export class ServiceService {
 
   getChapterSingolo(id: number) {
     return this.http.get<Chapter>(`${this.apiURL}/chapter/${id}`);
+  }
+
+  getMangaByChapterId(id: number) {
+    return this.http.get<Manga>(`${this.apiURL}/manga/chapter/${id}`);
+  }
+
+  nextChapter() {}
+
+  //panel
+  getPanels(id: number) {
+    const params = new HttpParams().set('chapterId', id);
+    return this.http.get<Panel[]>(`${this.apiURL}/chapter/get/panels`, {
+      params,
+    });
   }
 
   //comments

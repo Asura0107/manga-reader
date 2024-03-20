@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Chapter } from '../models/chapter';
 import { Panel } from '../models/panel';
 import { ServiceService } from '../service/service.service';
+import { Manga } from '../models/manga';
 @Component({
   selector: 'app-chapter-detail',
   templateUrl: './chapter-detail.component.html',
@@ -10,6 +11,8 @@ import { ServiceService } from '../service/service.service';
 })
 export class ChapterDetailComponent implements OnInit {
   chapter!: Chapter;
+  panels: Panel[] = [];
+  manga!: Manga;
   constructor(
     private routeActive: ActivatedRoute,
     private service: ServiceService
@@ -21,7 +24,23 @@ export class ChapterDetailComponent implements OnInit {
       this.service.getChapterSingolo(id).subscribe((retrieved) => {
         this.chapter = retrieved;
         console.log(retrieved);
+        this.getPanel(retrieved.id);
+        this.getmangaByChapter(retrieved.id);
       });
+    });
+  }
+
+  getPanel(id: number) {
+    this.service.getPanels(id).subscribe((it) => {
+      this.panels = it;
+      console.log(it);
+    });
+  }
+
+  getmangaByChapter(id: number) {
+    this.service.getMangaByChapterId(id).subscribe((it) => {
+      this.manga = it;
+      console.log(it);
     });
   }
 }

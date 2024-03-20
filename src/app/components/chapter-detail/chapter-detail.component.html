@@ -1,1 +1,12 @@
-
+<div class="container text-center divIniziale">
+  <h2 class="text-white title">{{ chapter.title }}</h2>
+  <div>
+    <button>Next</button>
+    <button>Previous</button>
+  </div>
+  <div class="">
+    <div class="panel">
+      <img *ngFor="let panel of panels" src="{{ panel.imageUrl }}" alt="" />
+    </div>
+  </div>
+</div>
