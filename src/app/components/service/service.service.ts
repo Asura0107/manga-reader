@@ -151,12 +151,22 @@ export class ServiceService {
   }
 
   //favorite
-  getFavorite(page: number = 0): Observable<Favorite[]> {
-    const params = new HttpParams().set('page', page.toString());
-    this.pageFavorite = page;
-    return this.http
-      .get<Page<Favorite>>(`${this.apiURL}/favorites/my-favorite`, { params })
-      .pipe(map((list) => list.content));
+  // getFavorite(userId: string, page: number = 0): Observable<Favorite[]> {
+  //   const params = new HttpParams()
+  //     .set('userId', userId)
+  //     .set('page', page.toString());
+  //   this.pageFavorite = page;
+  //   return this.http
+  //     .get<Page<Favorite>>(`${this.apiURL}/favorites/myfavorite`, {
+  //       params,
+  //     })
+  //     .pipe(map((list) => list.content));
+  // }
+  getFavorite(userid: string): Observable<Favorite[]> {
+    const params = new HttpParams().set('userId', userid);
+    return this.http.get<Favorite[]>(`${this.apiURL}/favorites/myfavorite`, {
+      params,
+    });
   }
 
   nextFavorite(page: number): Observable<Favorite[]> {

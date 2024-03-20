@@ -1,6 +1,19 @@
 <div class="container text-center divIniziale">
   <h2 class="text-white title">{{ chapter.title }}</h2>
   <div>
+    <form>
+      <fieldset>
+        <select name="chapters" (change)="getChapterSingle($event)">
+          <option
+            *ngFor="let choice of chapters"
+            [value]="choice.id"
+            [selected]="choice.id === chapter.id"
+          >
+            {{ choice.title }}
+          </option>
+        </select>
+      </fieldset>
+    </form>
     <button>Next</button>
     <button>Previous</button>
   </div>

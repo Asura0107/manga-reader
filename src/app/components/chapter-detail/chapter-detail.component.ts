@@ -4,6 +4,7 @@ import { Chapter } from '../models/chapter';
 import { Panel } from '../models/panel';
 import { ServiceService } from '../service/service.service';
 import { Manga } from '../models/manga';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-chapter-detail',
   templateUrl: './chapter-detail.component.html',
@@ -11,11 +12,13 @@ import { Manga } from '../models/manga';
 })
 export class ChapterDetailComponent implements OnInit {
   chapter!: Chapter;
+  chapters: Chapter[] = [];
   panels: Panel[] = [];
   manga!: Manga;
   constructor(
     private routeActive: ActivatedRoute,
-    private service: ServiceService
+    private service: ServiceService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +43,18 @@ export class ChapterDetailComponent implements OnInit {
   getmangaByChapter(id: number) {
     this.service.getMangaByChapterId(id).subscribe((it) => {
       this.manga = it;
+      this.chapters = it.chapters;
       console.log(it);
+    });
+  }
+
+  getChapterSingle(event: any) {
+    const selectedChapterId = event.target.value;
+    this.service.getChapterSingolo(selectedChapterId).subscribe((it) => {
+      if (it) {
+        this.route.navigate(['/chapter', selectedChapterId]);
+        console.log(it);
+      }
     });
   }
 }
