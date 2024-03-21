@@ -14,7 +14,7 @@
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-bookmark"
+              class="bi bi-bookmark me-1"
               viewBox="0 0 16 16"
             >
               <path
@@ -24,13 +24,13 @@
             <span>Bookmark</span>
           </button>
           <ng-template #block>
-            <button (click)="unbookmark()">
+            <button (click)="unbookmark()" class="m-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-bookmark-fill"
+                class="bi bi-bookmark-fill me-1"
                 viewBox="0 0 16 16"
               >
                 <path
@@ -97,7 +97,10 @@
         <div class="container">
           <div class="d-flex">
             <img src="{{ utente.avatar }}" alt="avatar" class="me-3" />
-            <form (ngSubmit)="postComment(manga.id)">
+            <form
+              (ngSubmit)="postComment(manga.id)"
+              class="w-100 d-flex flex-column"
+            >
               <div class="form-floating leaveComment">
                 <textarea
                   class="form-control"
@@ -108,10 +111,41 @@
                   name="content"
                   required
                 ></textarea>
-                <label for="floatingTextarea">Comments</label>
+                <label for="floatingTextarea">Join the discussion...</label>
               </div>
-              <button [disabled]="contentComment.invalid">comment</button>
+              <div class="d-flex justify-content-between mt-2">
+                <div></div>
+                <button [disabled]="contentComment.invalid">comment</button>
+              </div>
             </form>
+          </div>
+          <div class="text-white mt-3 recupera">
+            <span>{{ comments.length }} Comments</span>
+            <hr />
+          </div>
+          <div
+            *ngFor="let comment of comments"
+            class="d-flex mb-2 commentosingle"
+          >
+            <img src="{{ comment.avatar }}" alt="avatar" class="me-3" />
+            <div>
+              <div class="d-flex align-items-center">
+                <span class="text-white me-1">{{ comment.username }}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-person-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                  />
+                </svg>
+              </div>
+              <p class="text-white mt-2">{{ comment.content }}</p>
+            </div>
           </div>
         </div>
       </div>

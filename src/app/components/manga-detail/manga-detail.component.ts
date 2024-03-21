@@ -78,11 +78,14 @@ export class MangaDetailComponent implements OnInit {
       const newComment = {
         user: this.utente.id,
         content: this.content,
+        avatar: this.utente.avatar,
+        username: this.utente.username,
       };
       this.service.postComment(newComment, mangaId).subscribe(
         (comment) => {
           console.log(comment);
           this.getComments(this.manga.title);
+          this.content = '';
         },
         (error) => {
           console.error('Error:', error);

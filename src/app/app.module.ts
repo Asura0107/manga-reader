@@ -15,6 +15,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ComicsComponent } from './components/comics/comics.component';
+import { SearchComponent } from './components/search/search.component';
 const routes: Route[] = [
   {
     path: '',
@@ -70,6 +71,7 @@ const routes: Route[] = [
     SignupComponent,
     ProfileComponent,
     ComicsComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
