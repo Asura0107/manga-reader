@@ -22,6 +22,7 @@ export class MangaDetailComponent implements OnInit {
   chapters: Chapter[] = [];
   utente!: User;
   content: string = '';
+  isFavorite!: boolean;
 
   constructor(
     private service: ServiceService,
@@ -38,6 +39,7 @@ export class MangaDetailComponent implements OnInit {
         console.log(retrieved);
         this.getChapters(id);
         this.getComments(this.manga.title);
+        this.checkFavorite();
       });
     });
     this.getTop();
@@ -89,13 +91,25 @@ export class MangaDetailComponent implements OnInit {
     }
   }
 
-  bookmark() {
+  // bookmark() {
+  //   if (this.utente) {
+  //     const data = {
+  //       manga: this.manga.id,
+  //       user: this.utente.id,
+  //     };
+  //     if (this.getSingleFavorite == null) {
+  //       this.service
+  //         .saveFavorite(data)
+  //         .subscribe(() => (this.isFavorite = !this.isFavorite));
+  //     }
+  //   }
+  // }
+
+  unbookmark() {
     if (this.utente) {
-      const data = {
-        manga: this.manga.id,
-        user: this.utente.id,
-      };
-      this.service.saveFavorite(data).subscribe();
+      this.service
+        .deleteFavorite(this.utente.id, this.manga.id)
+        .subscribe(() => (this.isFavorite = !this.isFavorite));
     }
   }
 
@@ -105,4 +119,58 @@ export class MangaDetailComponent implements OnInit {
       console.log(it);
     });
   }
+
+  checkFavorite() {
+    if (this.utente) {
+      this.service
+        .getSingleFavorite(this.utente.id, this.manga.id)
+        .subscribe((isFavorite) => {
+          this.isFavorite = isFavorite;
+          console.log(isFavorite);
+        });
+    }
+  }
+
+  bookmark() {
+    if (this.utente) {
+      const data = {
+        manga: this.manga.id,
+        user: this.utente.id,
+      };
+      this.service.getSingleFavorite(this.utente.id, this.manga.id).subscribe(
+        (isFavorite) => {
+          if (!isFavorite) {
+            this.service.saveFavorite(data).subscribe(
+              () => {
+                this.isFavorite = true;
+                console.log('Manga aggiunto con successo!');
+              },
+              (error) => {
+                console.error('Error:', error);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+    }
+  }
+
+  // getSingleFavorite() {
+  //   if (this.utente) {
+  //     this.service
+  //       .getSingleFavoritecheck(this.utente.id, this.manga.id)
+  //       .subscribe(
+  //         (isFavorite) => {
+  //           // this.isFavorite = isFavorite;
+  //           console.log('Il manga è nei preferiti:', isFavorite);
+  //         },
+  //         (error) => {
+  //           console.error('Error:', error);
+  //         }
+  //       );
+  //   }
+  // }
 }

@@ -28,22 +28,23 @@ export class FavoriteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getme();
-    // this.getFavorites();
+    this.getFavorites();
     this.getTop();
   }
-  getme() {
+  getFavorites() {
     this.authSrv.getMe().subscribe((it) => {
       this.utente = it;
       console.log(this.utente);
       this.service.getFavorite(it.id).subscribe(
         (favorites: Favorite[]) => {
           this.favorites = favorites;
-          console.log(this.favorites);
-          favorites.forEach((favorite) => {
-            this.favoriteManga.push(favorite.manga);
+          // console.log(this.favorites);
+          favorites.forEach((data) => {
+            // console.log(data.manga);
+            this.favoriteManga.push(data.manga);
+            console.log(this.favoriteManga);
+            return data.manga;
           });
-          console.log('favoritemanga: ' + this.favoriteManga);
         },
         (error) => {
           console.error('Errore durante il recupero dei preferiti:', error);
@@ -51,31 +52,6 @@ export class FavoriteComponent implements OnInit {
       );
     });
   }
-
-  getManga(id: number): Observable<Manga> {
-    return this.service.getMangaSingolo(id);
-  }
-
-  // getFavorites() {
-  //   if (this.utente) {
-  //     this.service
-  //       .getFavorite(this.currentPage, this.utente.id)
-  //       .subscribe((data) => {
-  //         const favoriteCount = data.length;
-  //         let processedCount = 0;
-  //         for (let i = 0; i < favoriteCount; i++) {
-  //           this.getManga(data[i].manga).subscribe((it) => {
-  //             processedCount++;
-  //             this.favorites.push(it);
-  //             if (processedCount === favoriteCount) {
-  //               console.log('Tutti i manga preferiti sono stati elaborati.');
-  //             }
-  //             console.log(this.favorites);
-  //           });
-  //         }
-  //       });
-  //   }
-  // }
 
   next() {
     this.service.nextFavorite(this.currentPage).subscribe((data) => {

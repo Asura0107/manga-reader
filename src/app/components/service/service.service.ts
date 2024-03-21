@@ -4,7 +4,7 @@ import { Favorite } from '../models/favorite';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthData } from 'src/app/auth/auth-data';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { Page } from '../models/page';
 import { Chapter } from '../models/chapter';
 import { Comment } from '../models/comment';
@@ -151,17 +151,6 @@ export class ServiceService {
   }
 
   //favorite
-  // getFavorite(userId: string, page: number = 0): Observable<Favorite[]> {
-  //   const params = new HttpParams()
-  //     .set('userId', userId)
-  //     .set('page', page.toString());
-  //   this.pageFavorite = page;
-  //   return this.http
-  //     .get<Page<Favorite>>(`${this.apiURL}/favorites/myfavorite`, {
-  //       params,
-  //     })
-  //     .pipe(map((list) => list.content));
-  // }
   getFavorite(userid: string): Observable<Favorite[]> {
     const params = new HttpParams().set('userId', userid);
     return this.http.get<Favorite[]>(`${this.apiURL}/favorites/myfavorite`, {
@@ -187,5 +176,41 @@ export class ServiceService {
 
   saveFavorite(data: { manga: number; user: string }): Observable<Favorite> {
     return this.http.post<Favorite>(`${this.apiURL}/favorites`, data);
+  }
+
+  deleteFavorite(userId: string, mangaId: number): Observable<void> {
+    const params = new HttpParams().set('userId', userId);
+    return this.http.delete<void>(
+      `${this.apiURL}/favorites/delete/${mangaId}`,
+      {
+        params,
+      }
+    );
+  }
+
+  getSingleFavoritecheck(
+    userId: string,
+    mangaId: number
+  ): Observable<Favorite> {
+    const params = new HttpParams().set('userId', userId);
+    return this.http.get<Favorite>(
+      `${this.apiURL}/favorites/manga/${mangaId}`,
+      {
+        params,
+      }
+    );
+  }
+  getSingleFavorite(userId: string, mangaId: number): Observable<boolean> {
+    const params = new HttpParams().set('userId', userId);
+    return this.http
+      .get<Favorite>(`${this.apiURL}/favorites/manga/${mangaId}`, { params })
+      .pipe(
+        map((favorite) => {
+          return !!favorite; // Restituisce true se esiste un preferito, altrimenti false(se da null, NaN, ...)
+        }),
+        catchError(() => {
+          return of(false); // Se si verifica un errore(404), restituisci false
+        })
+      );
   }
 }
