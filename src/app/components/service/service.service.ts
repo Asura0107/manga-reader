@@ -85,8 +85,11 @@ export class ServiceService {
     return this.http.get<Manga>(`${this.apiURL}/manga/${id}`);
   }
 
-  getMangaByGenre(genre: string) {
-    return this.http.get<Manga[]>(`${this.apiURL}/manga/genre?genre=${genre}`);
+  getMangaByGenre(genre: string): Observable<Manga[]> {
+    const params = new HttpParams().set('genre', genre);
+    return this.http
+      .get<Page<Manga>>(`${this.apiURL}/manga/genre`, { params })
+      .pipe(map((list) => list.content));
   }
 
   getMangaRandom() {

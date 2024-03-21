@@ -84,4 +84,12 @@ export class ComicsComponent implements OnInit {
       console.log(it);
     });
   }
+
+  getByGenre(event: any) {
+    const selectedGenre = event.target.value;
+    this.service.getMangaByGenre(selectedGenre).subscribe((it) => {
+      this.all = it;
+      console.log(it);
+    });
+  }
 }
