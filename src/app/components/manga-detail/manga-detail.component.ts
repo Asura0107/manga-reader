@@ -23,6 +23,7 @@ export class MangaDetailComponent implements OnInit {
   utente!: User;
   content: string = '';
   isFavorite!: boolean;
+  selectedChapterId!: number;
 
   constructor(
     private service: ServiceService,
@@ -176,4 +177,25 @@ export class MangaDetailComponent implements OnInit {
   //       );
   //   }
   // }
+
+  onPatchProfile(id: number, point: number) {
+    if (this.utente.points >= point) {
+      this.service
+        .patchProfile(this.utente.id, {
+          points: this.utente.points - point,
+        })
+        .subscribe(() => {
+          this.patchChapter(id);
+          this.getChapters(this.manga.id);
+          this.getChapterSingle(id);
+          console.log(this.utente.points - point);
+        });
+    }
+  }
+
+  patchChapter(id: number) {
+    this.service
+      .patchChapter(id, { unlocked: true })
+      .subscribe(() => console.log(id));
+  }
 }

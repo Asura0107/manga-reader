@@ -16,7 +16,6 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ComicsComponent } from './components/comics/comics.component';
 import { SearchComponent } from './components/search/search.component';
-import { DialogComponent } from './components/dialog/dialog.component';
 const routes: Route[] = [
   {
     path: '',
@@ -77,7 +76,6 @@ const routes: Route[] = [
     ProfileComponent,
     ComicsComponent,
     SearchComponent,
-    DialogComponent,
   ],
   imports: [
     BrowserModule,

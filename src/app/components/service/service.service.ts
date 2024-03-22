@@ -132,6 +132,11 @@ export class ServiceService {
     return this.http.get<Manga>(`${this.apiURL}/manga/chapter/${id}`);
   }
 
+  patchChapter(id: number, body: { unlocked: boolean }) {
+    const params = new HttpParams().set('chapterId', id.toString());
+    return this.http.patch(`${this.apiURL}/chapter/unlocked`, body, { params });
+  }
+
   nextChapter() {}
 
   //panel
@@ -215,5 +220,11 @@ export class ServiceService {
           return of(false); // Se si verifica un errore(404), restituisci false
         })
       );
+  }
+
+  //user
+  patchProfile(userId: string, body: { points: number }) {
+    const params = new HttpParams().set('userId', userId);
+    return this.http.patch(`${this.apiURL}/users/me`, body, { params });
   }
 }
