@@ -1,1 +1,160 @@
-<p>pay works!</p>
+<div
+  class="container layer d-flex flex-column align-items-center rounded payDiv p-2"
+>
+  <div class="d-flex p-3 mb-2 divButton">
+    <button class="me-1" (click)="paypal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-paypal"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.35.35 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91q.57-.403.993-1.005a4.94 4.94 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.7 2.7 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.7.7 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016q.326.186.548.438c.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.87.87 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.35.35 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32z"
+        />
+      </svg>
+    </button>
+    <button class="ms-1" (click)="card()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-credit-card"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"
+        />
+        <path
+          d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"
+        />
+      </svg>
+    </button>
+  </div>
+  <!-- <div> -->
+  <form
+    (ngSubmit)="postPaypal(form)"
+    #form="ngForm"
+    id="formPaypal"
+    *ngIf="isActive === false"
+  >
+    <div class="input-group">
+      <fieldset class="d-flex">
+        <select
+          class="form-select form-control mb-4"
+          id="inputGroupSelect01"
+          name="amount"
+          type="text"
+          id="amount"
+          placeholder="amount"
+          required
+          ngModel
+          (change)="updateAmountTextAndReadonly($event)"
+        >
+          <option [value]="10">10</option>
+          <option [value]="50">50</option>
+          <option [value]="100">100</option>
+        </select>
+      </fieldset>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control mb-4"
+        [value]="amountText"
+        readonly
+        placeholder="amount"
+      />
+      <input
+        type="email"
+        name="emailPaypal"
+        id="emailPaypal"
+        class="form-control mb-4"
+        placeholder="emailPaypal"
+        required
+        ngModel
+      />
+      <input
+        type="text"
+        name="passwordPaypal"
+        id="passwordPaypal"
+        placeholder="passwordPaypal"
+        class="form-control mb-4"
+        required
+        ngModel
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <!-- card -->
+  <form
+    #formCard="ngForm"
+    id="formCard"
+    *ngIf="isActive === true"
+    (ngSubmit)="posCard(formCard)"
+  >
+    <div class="input-group">
+      <fieldset class="d-flex">
+        <select
+          class="form-select form-control mb-4"
+          id="inputGroupSelect01"
+          name="amount"
+          type="text"
+          id="amount"
+          placeholder="amount"
+          required
+          ngModel
+          (change)="updateAmountTextAndReadonly($event)"
+        >
+          <option [value]="10">10</option>
+          <option [value]="50">50</option>
+          <option [value]="100">100</option>
+        </select>
+      </fieldset>
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control mb-4"
+        [value]="amountText"
+        readonly
+        placeholder="amount"
+      />
+      <input
+        type="email"
+        name="numeroCarta"
+        id="numeroCarta"
+        class="form-control mb-4"
+        placeholder="numeroCarta"
+        required
+        ngModel
+      />
+      <input
+        type="text"
+        name="scadenza"
+        id="scadenza"
+        placeholder="scadenza"
+        class="form-control mb-4"
+        required
+        ngModel
+      />
+      <input
+        type="text"
+        name="cvv"
+        id="cvv"
+        placeholder="cvv"
+        class="form-control mb-4"
+        required
+        ngModel
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <!-- </div> -->
+</div>

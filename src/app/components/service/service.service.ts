@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Manga } from '../models/manga';
 import { Favorite } from '../models/favorite';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthData } from 'src/app/auth/auth-data';
 import { Observable, catchError, map, of } from 'rxjs';
 import { Page } from '../models/page';
 import { Chapter } from '../models/chapter';
 import { Comment } from '../models/comment';
 import { Panel } from '../models/panel';
+import { Paypal } from '../models/paypal';
+import { Card } from '../models/card';
 @Injectable({
   providedIn: 'root',
 })
@@ -226,5 +228,34 @@ export class ServiceService {
   patchProfile(userId: string, body: { points: number }) {
     const params = new HttpParams().set('userId', userId);
     return this.http.patch(`${this.apiURL}/users/me`, body, { params });
+  }
+
+  //paypal
+  postPaypal(data: Partial<Paypal>, userId: string): Observable<Paypal> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.getAccessToken(), // Aggiungi il token di accesso nell'header Authorization
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<Paypal>(
+      `${this.apiURL}/paypal?userId=${userId}`,
+      data,
+      { headers }
+    );
+  }
+
+  //card
+  postCard(data: Partial<Card>, userId: string): Observable<Card> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.getAccessToken(), // Aggiungi il token di accesso nell'header Authorization
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<Card>(`${this.apiURL}/carta?userId=${userId}`, data, {
+      headers,
+    });
+  }
+
+  //token
+  private getAccessToken(): string {
+    return localStorage.getItem('access_token') || '';
   }
 }

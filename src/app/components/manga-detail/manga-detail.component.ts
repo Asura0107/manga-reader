@@ -185,9 +185,10 @@ export class MangaDetailComponent implements OnInit {
           points: this.utente.points - point,
         })
         .subscribe(() => {
+          this.getme();
           this.patchChapter(id);
-          this.getChapters(this.manga.id);
           this.getChapterSingle(id);
+          this.getChapters(this.manga.id);
           console.log(this.utente.points - point);
         });
     }

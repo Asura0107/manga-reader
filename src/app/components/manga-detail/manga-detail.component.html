@@ -125,8 +125,13 @@
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div class="modal-body">Are you sure?</div>
-                  <div class="modal-footer">
+                  <div class="modal-body" *ngIf="utente.points >= 10">
+                    Are you sure?
+                  </div>
+                  <div class="modal-body" *ngIf="utente.points < 10">
+                    You don't have enough points
+                  </div>
+                  <div class="modal-footer" *ngIf="utente.points >= 10">
                     <button
                       type="button"
                       class="btn btn-secondary"
