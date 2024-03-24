@@ -28,6 +28,7 @@ export class PayComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.amountText = '2.0';
     this.getme();
   }
 
@@ -58,6 +59,7 @@ export class PayComponent implements OnInit {
     if (this.utente) {
       this.service.postPaypal(data, this.utente.id).subscribe(
         (response) => {
+          this.onPatchProfile(this.selectedValue);
           console.log('Transazione PayPal avvenuta con successo:', response);
         },
         (error) => {
@@ -77,6 +79,7 @@ export class PayComponent implements OnInit {
     if (this.utente) {
       this.service.postCard(data, this.utente.id).subscribe(
         (response) => {
+          this.onPatchProfile(this.selectedValue);
           console.log('Transazione carta avvenuta con successo:', response);
         },
         (error) => {
@@ -91,5 +94,16 @@ export class PayComponent implements OnInit {
   }
   paypal() {
     this.isActive = false;
+  }
+
+  onPatchProfile(point: number) {
+    this.service
+      .patchProfile(this.utente.id, {
+        points: this.utente.points + point,
+      })
+      .subscribe(() => {
+        this.getme();
+        console.log(this.utente.points + point);
+      });
   }
 }

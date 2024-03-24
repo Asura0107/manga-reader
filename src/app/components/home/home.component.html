@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="d-flex row">
-    <div class="d-flex firstDiv col-8">
+  <div class="d-flex rowPrincipale row">
+    <div class="d-flex firstDiv col col-lg-8">
       <div class="banner d-flex">
         <img
           src="{{ first.cover }}"
@@ -47,7 +47,7 @@
         <h4 class="text-white mt-2 container">Too good to miss</h4>
         <hr />
         <div class="row container">
-          <div *ngFor="let popular of popular" class="col">
+          <div *ngFor="let popular of popular" class="col-6 col-md-4 col-lg-3">
             <img
               src="{{ popular.cover }}"
               alt="manga img"
@@ -69,7 +69,10 @@
         <h4 class="text-white mt-2 container">Reccomended</h4>
         <hr />
         <div class="row container">
-          <div *ngFor="let reccomended of reccomended" class="col-6 d-flex">
+          <div
+            *ngFor="let reccomended of reccomended"
+            class="col col-md-5 col-lg-6 d-flex"
+          >
             <img
               src="{{ reccomended.cover }}"
               alt="manga img"
@@ -98,7 +101,7 @@
         </div>
       </div>
     </div>
-    <div class="secondDiv text-white ms-3 col-3">
+    <div class="secondDiv container text-white col col-lg-3">
       <h4 class="mt-2 p-2">Top</h4>
       <hr />
       <div *ngFor="let second of second" class="d-flex mb-4">

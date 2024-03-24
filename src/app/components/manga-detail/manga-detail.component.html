@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="d-flex row">
-    <div class="d-flex firstDiv col-8">
-      <div class="banner d-flex">
+  <div class="d-flex rowPrincipale row">
+    <div class="d-flex firstDiv col col-lg-8">
+      <div class="banner d-md-flex">
         <div class="d-flex flex-column">
           <img src="{{ manga.cover }}" alt="manga img" class="p-3" />
           <button
@@ -46,7 +46,7 @@
             {{ manga.title }}
           </h3>
           <div>
-            <p>Summary</p>
+            <p class="summary">Summary</p>
             <p>{{ manga.description }}</p>
           </div>
           <div class="d-flex">
@@ -213,7 +213,7 @@
         </div>
       </div>
     </div>
-    <div class="secondDiv text-white ms-3 col-3">
+    <div class="secondDiv container text-white col col-lg-3">
       <h4 class="mt-2 p-2">Top</h4>
       <hr />
       <div *ngFor="let second of second" class="d-flex mb-4">

@@ -37,6 +37,7 @@
 .secondDiv img {
   width: 80px;
   height: 120px;
+  object-fit: cover;
 }
 .popular {
   background-color: #222222;
@@ -78,4 +79,9 @@ hr {
 }
 img {
   object-fit: cover;
+}
+@media screen and (max-width: 993px) {
+  .rowPrincipale {
+    flex-direction: column;
+  }
 }

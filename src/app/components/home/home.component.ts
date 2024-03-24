@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
     'Return of the Mount Hua Sect',
     'Solo Leveling',
     'The Descent Of The Demonic Master',
-    'I’ll Be The Matriarch In This Life',
     'Nano Machine',
   ];
   popular: Manga[] = [];
@@ -64,14 +63,11 @@ export class HomeComponent implements OnInit {
   }
   getPopular() {
     this.titles.forEach((title) => {
-      this.service
-        .getByTitle(title)
-        .pipe(take(1))
-        .subscribe((manga) => {
-          // console.log(`Manga by title ${title}:`, manga);
-          this.popular.push(...manga);
-          // console.log(this.popular);
-        });
+      this.service.getTitle(title).subscribe((manga) => {
+        console.log(`Manga by title ${title}:`, manga);
+        this.popular.push(manga);
+        console.log(this.popular);
+      });
     });
   }
   getChapter(title: string) {

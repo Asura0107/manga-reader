@@ -1,6 +1,6 @@
 <div class="container mt-5">
-  <div class="d-flex row">
-    <div class="col-8">
+  <div class="d-flex rowPrincipale row">
+    <div class="col col-lg-8">
       <div class="container popular">
         <h4 class="text-white mt-2">Comics</h4>
         <hr />
@@ -14,7 +14,7 @@
           </fieldset>
         </form>
         <div class="row">
-          <div *ngFor="let all of all" class="col-3">
+          <div *ngFor="let all of all" class="col-6 col-md-4 col-lg-3">
             <img
               src="{{ all.cover }}"
               alt="manga img"
@@ -44,7 +44,7 @@
         <button (click)="next()" *ngIf="!nextPage" class="mt-3">Next</button>
       </div>
     </div>
-    <div class="secondDiv text-white ms-3 col-3">
+    <div class="secondDiv container text-white col col-lg-3">
       <h4 class="mt-2 p-2">Top</h4>
       <hr />
       <div *ngFor="let second of second" class="d-flex mb-4">

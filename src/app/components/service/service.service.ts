@@ -112,6 +112,10 @@ export class ServiceService {
       .pipe(map((list) => list.content));
   }
 
+  getTitle(title: string): Observable<Manga> {
+    return this.http.get<Manga>(`${this.apiURL}/manga/title/${title}`);
+  }
+
   //chapter
   getChapters(title: string) {
     const params = new HttpParams().set('title', title);
@@ -210,6 +214,7 @@ export class ServiceService {
       }
     );
   }
+
   getSingleFavorite(userId: string, mangaId: number): Observable<boolean> {
     const params = new HttpParams().set('userId', userId);
     return this.http
