@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
       this.utente = _user;
       console.log(this.utente);
     });
-    this.getme();
+    // this.getme();
 
     this.authSrv.restore();
   }
@@ -32,12 +32,12 @@ export class NavbarComponent implements OnInit {
     this.authSrv.logout();
     this.router.navigate(['/login']);
   }
-  getme() {
-    this.authSrv.getMe().subscribe((it) => {
-      this.utente1 = it;
-      console.log(this.utente);
-    });
-  }
+  // getme() {
+  //   this.authSrv.getMe().subscribe((it) => {
+  //     this.utente1 = it;
+  //     console.log(this.utente);
+  //   });
+  // }
 
   getByTitle() {
     this.service.getByTitle(this.searchTerm).subscribe((it) => {

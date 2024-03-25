@@ -24,6 +24,8 @@ export class MangaDetailComponent implements OnInit {
   content: string = '';
   isFavorite!: boolean;
   selectedChapterId!: number;
+  ids: string[] = [];
+  unlockedes: Chapter[] = [];
 
   constructor(
     private service: ServiceService,
@@ -41,10 +43,12 @@ export class MangaDetailComponent implements OnInit {
         this.getChapters(id);
         this.getComments(this.manga.title);
         this.checkFavorite();
+        this.getUnlocked();
       });
     });
     this.getTop();
     this.getme();
+    // this.isUnlocked();
   }
   getme() {
     this.authSrv.getMe().subscribe((it) => {
@@ -186,7 +190,8 @@ export class MangaDetailComponent implements OnInit {
         })
         .subscribe(() => {
           this.getme();
-          this.patchChapter(id);
+          // this.patchChapter(id);
+          this.unlocked(id);
           this.getChapterSingle(id);
           this.getChapters(this.manga.id);
           console.log(this.utente.points - point);
@@ -198,5 +203,30 @@ export class MangaDetailComponent implements OnInit {
     this.service
       .patchChapter(id, { unlocked: true })
       .subscribe(() => console.log(id));
+  }
+
+  unlocked(id: number) {
+    if (this.utente) {
+      this.service.unlockChapter(id, this.utente.id).subscribe((it) => {
+        // console.log(it.unlockedByUsers);
+        this.unlockedes.push(it);
+      });
+    }
+  }
+
+  getUnlocked() {
+    if (this.utente) {
+      this.service.getChapterUser(this.utente.id).subscribe((it) => {
+        this.unlockedes = it;
+        console.log(this.unlockedes);
+      });
+    }
+  }
+
+  isUnlocked(id: number): boolean {
+    if (this.unlockedes) {
+      return this.unlockedes.some((chapter) => chapter.id === id);
+    }
+    return false;
   }
 }

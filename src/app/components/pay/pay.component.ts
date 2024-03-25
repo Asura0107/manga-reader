@@ -18,7 +18,7 @@ import { NgForm } from '@angular/forms';
 export class PayComponent implements OnInit {
   amountText!: string;
   isAmountReadonly!: boolean;
-  selectedValue: number = 10;
+  selectedValue!: number;
   utente!: User;
   isActive: boolean = true;
   constructor(
@@ -28,7 +28,7 @@ export class PayComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.amountText = '2.0';
+    this.selectedValue;
     this.getme();
   }
 
@@ -40,12 +40,15 @@ export class PayComponent implements OnInit {
   }
 
   updateAmountTextAndReadonly(event: any) {
-    const value = event.target.value;
-    if (value === '10') {
+    const value = parseInt(event.target.value);
+    if (value === 10) {
+      this.selectedValue = 10;
       this.amountText = '2.0';
-    } else if (value === '50') {
+    } else if (value === 50) {
+      this.selectedValue = 50;
       this.amountText = '10.0';
-    } else if (value === '100') {
+    } else if (value === 100) {
+      this.selectedValue = 100;
       this.amountText = '20.0';
     }
   }

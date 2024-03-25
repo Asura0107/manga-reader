@@ -11,6 +11,7 @@ import { Comment } from '../models/comment';
 import { Panel } from '../models/panel';
 import { Paypal } from '../models/paypal';
 import { Card } from '../models/card';
+import { User } from '../models/user';
 @Injectable({
   providedIn: 'root',
 })
@@ -143,7 +144,23 @@ export class ServiceService {
     return this.http.patch(`${this.apiURL}/chapter/unlocked`, body, { params });
   }
 
-  nextChapter() {}
+  unlockChapter(id: number, userId: string): Observable<Chapter> {
+    const params = new HttpParams()
+      .set('chapterId', id.toString())
+      .set('userId', userId);
+    return this.http.post<Chapter>(
+      `${this.apiURL}/chapter/unlocked/user`,
+      {},
+      { params }
+    );
+  }
+
+  getChapterUser(userId: string): Observable<Chapter[]> {
+    const params = new HttpParams().set('userId', userId);
+    return this.http.get<Chapter[]>(`${this.apiURL}/chapter/unlocked/user`, {
+      params,
+    });
+  }
 
   //panel
   getPanels(id: number) {

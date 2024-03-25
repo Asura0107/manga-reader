@@ -4,4 +4,5 @@ export interface Chapter {
   number: number;
   unlocked: boolean;
   panels: [];
+  unlockedByUsers: [];
 }

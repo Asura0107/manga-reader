@@ -72,14 +72,14 @@
             (click)="selectedChapterId = chapter.id"
           >
             <div
-              *ngIf="chapter.unlocked == true"
+              *ngIf="chapter.unlocked === true || isUnlocked(chapter.id)"
               class="chapterTitle p-2"
               (click)="getChapterSingle(chapter.id)"
             >
               <p>{{ chapter.title }}</p>
             </div>
             <div
-              *ngIf="chapter.unlocked == false"
+              *ngIf="chapter.unlocked === false && !isUnlocked(chapter.id)"
               class="d-flex align-items-baseline chapterTitle p-2"
               type="button"
               data-bs-toggle="modal"
