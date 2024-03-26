@@ -1,0 +1,24 @@
+.layer {
+  background-color: #222222;
+  justify-content: center;
+  margin-top: 105px;
+  width: 340px;
+}
+
+hr {
+  color: white;
+}
+
+fieldset {
+  width: 100%;
+}
+
+svg {
+  width: 100px;
+  height: 30px;
+}
+
+.divButton button {
+  border-radius: 20px;
+  box-shadow: 1px 0px 5px 4px rgba(5, 5, 5, 0.9098039216);
+}/*# sourceMappingURL=pay.component.css.map */

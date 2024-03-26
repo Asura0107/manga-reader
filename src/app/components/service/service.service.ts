@@ -12,6 +12,7 @@ import { Panel } from '../models/panel';
 import { Paypal } from '../models/paypal';
 import { Card } from '../models/card';
 import { User } from '../models/user';
+import { Like } from '../models/like';
 @Injectable({
   providedIn: 'root',
 })
@@ -279,5 +280,25 @@ export class ServiceService {
   //token
   private getAccessToken(): string {
     return localStorage.getItem('access_token') || '';
+  }
+
+  //like
+  like(mangaId: number, data: Partial<Like>): Observable<Like> {
+    const params = new HttpParams().set('mangaId', mangaId.toString());
+    return this.http.post<Like>(`${this.apiURL}/like`, data, { params });
+  }
+
+  deleteLike(userId: string, title: string, id: number): Observable<void> {
+    const params = new HttpParams()
+      .set('userId', userId)
+      .set('id', id.toString());
+    return this.http.delete<void>(`${this.apiURL}/like/delete/${title}`, {
+      params,
+    });
+  }
+
+  getlike(userId: string, id: number): Observable<Like> {
+    const params = new HttpParams().set('userId', userId);
+    return this.http.get<Like>(`${this.apiURL}/like/user/${id}`, { params });
   }
 }

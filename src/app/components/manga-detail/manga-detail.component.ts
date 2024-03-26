@@ -10,6 +10,7 @@ import { AuthData } from 'src/app/auth/auth-data';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Comment } from '../models/comment';
 import { Favorite } from '../models/favorite';
+import { Like } from '../models/like';
 @Component({
   selector: 'app-manga-detail',
   templateUrl: './manga-detail.component.html',
@@ -26,6 +27,10 @@ export class MangaDetailComponent implements OnInit {
   selectedChapterId!: number;
   ids: string[] = [];
   unlockedes: Chapter[] = [];
+  isLike!: boolean;
+  arrayLikes: Like[] = [];
+  users: String[] = [];
+  likes!: Like | null;
 
   constructor(
     private service: ServiceService,
@@ -39,17 +44,28 @@ export class MangaDetailComponent implements OnInit {
       const id = +param['id'];
       this.service.getMangaSingolo(id).subscribe((retrieved) => {
         this.manga = retrieved;
-        console.log(retrieved);
+        console.log(retrieved.likes);
         this.getChapters(id);
         this.getComments(this.manga.title);
         this.checkFavorite();
         this.getUnlocked();
+        for (let i = 0; i < retrieved.likes.length; i++) {
+          this.arrayLikes.push(retrieved.likes[i]);
+        }
+        console.log('this', this.arrayLikes);
       });
     });
     this.getTop();
     this.getme();
-    // this.isUnlocked();
   }
+
+  getSingleManga(id: number) {
+    this.service.getMangaSingolo(id).subscribe((it) => {
+      this.route.navigate(['/manga', id]);
+      console.log(it);
+    });
+  }
+
   getme() {
     this.authSrv.getMe().subscribe((it) => {
       this.utente = it;
@@ -98,20 +114,6 @@ export class MangaDetailComponent implements OnInit {
       );
     }
   }
-
-  // bookmark() {
-  //   if (this.utente) {
-  //     const data = {
-  //       manga: this.manga.id,
-  //       user: this.utente.id,
-  //     };
-  //     if (this.getSingleFavorite == null) {
-  //       this.service
-  //         .saveFavorite(data)
-  //         .subscribe(() => (this.isFavorite = !this.isFavorite));
-  //     }
-  //   }
-  // }
 
   unbookmark() {
     if (this.utente) {
@@ -166,22 +168,6 @@ export class MangaDetailComponent implements OnInit {
     }
   }
 
-  // getSingleFavorite() {
-  //   if (this.utente) {
-  //     this.service
-  //       .getSingleFavoritecheck(this.utente.id, this.manga.id)
-  //       .subscribe(
-  //         (isFavorite) => {
-  //           // this.isFavorite = isFavorite;
-  //           console.log('Il manga è nei preferiti:', isFavorite);
-  //         },
-  //         (error) => {
-  //           console.error('Error:', error);
-  //         }
-  //       );
-  //   }
-  // }
-
   onPatchProfile(id: number, point: number) {
     if (this.utente.points >= point) {
       this.service
@@ -228,5 +214,34 @@ export class MangaDetailComponent implements OnInit {
       return this.unlockedes.some((chapter) => chapter.id === id);
     }
     return false;
+  }
+
+  like() {
+    if (this.utente) {
+      const like = {
+        user: this.utente.id,
+      };
+      this.service.like(this.manga.id, like).subscribe(
+        (it) => {
+          this.likes = it;
+          this.isLike = true;
+          console.log('Like inviato', it);
+        },
+        (error) => {
+          console.error('Errore ', error);
+        }
+      );
+    }
+  }
+
+  dislike() {
+    if (this.utente && this.likes) {
+      this.service
+        .deleteLike(this.utente.id, this.manga.title, this.likes.id)
+        .subscribe(() => {
+          this.likes = null;
+          this.isLike = false;
+        });
+    }
   }
 }
