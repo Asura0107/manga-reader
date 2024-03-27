@@ -90,4 +90,11 @@ export class HomeComponent implements OnInit {
       console.log(it);
     });
   }
+
+  getChapterSingle(id: number) {
+    this.service.getChapterSingolo(id).subscribe((it) => {
+      this.router.navigate(['/chapter', id]);
+      console.log(it);
+    });
+  }
 }

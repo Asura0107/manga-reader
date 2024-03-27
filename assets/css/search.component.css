@@ -38,4 +38,10 @@ hr {
 
 button {
   background-color: #222222;
+}
+
+@media screen and (max-width: 993px) {
+  .rowPrincipale {
+    flex-direction: column;
+  }
 }/*# sourceMappingURL=search.component.css.map */

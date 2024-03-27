@@ -32,12 +32,16 @@
   max-width: 220px;
 }
 
+select {
+  background-color: #8a8282;
+}
+
 hr {
   color: white;
 }
 
 button {
-  background-color: #222222;
+  background-color: #8a8282;
 }
 
 @media screen and (max-width: 993px) {

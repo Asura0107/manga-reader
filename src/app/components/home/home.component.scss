@@ -85,3 +85,11 @@ img {
     flex-direction: column;
   }
 }
+@media screen and (max-width: 576px) {
+  .banner {
+    img {
+      width: 120px;
+      height: 160px;
+    }
+  }
+}

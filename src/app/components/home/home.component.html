@@ -22,25 +22,6 @@
               <p class="text-white">{{ first.genre }}</p>
             </div>
           </div>
-          <div>
-            <button
-              class="d-flex align-items-baseline p-2 justify-content-center"
-            >
-              <h5>Start</h5>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-play-fill ms-3"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"
-                />
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
       <div class="popular mt-4">
@@ -92,7 +73,9 @@
                     *ngFor="let chapter of getFirstThreeChapters(reccomended)"
                     class="chapter"
                   >
-                    {{ chapter.title }}
+                    <span (click)="getChapterSingle(chapter.id)">{{
+                      chapter.title
+                    }}</span>
                   </li>
                 </ul>
               </div>
