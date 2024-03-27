@@ -1,6 +1,6 @@
 <div class="container text-center divIniziale">
-  <h2 class="text-white title">{{ chapter.title }}</h2>
-  <div>
+  <h2 class="text-white title">{{ manga.title }} {{ chapter.title }}</h2>
+  <div class="d-flex justify-content-between my-3">
     <form>
       <fieldset>
         <select name="chapters" (change)="getChapterSingle($event)">
@@ -14,10 +14,12 @@
         </select>
       </fieldset>
     </form>
-    <button>Next</button>
-    <button>Previous</button>
+    <div class="d-flex">
+      <button (click)="goToNextChapter()">Next</button>
+      <button (click)="goToPreviousChapter()" class="ms-2">Previous</button>
+    </div>
   </div>
-  <div class="">
+  <div>
     <div class="panel">
       <img *ngFor="let panel of panels" src="{{ panel.imageUrl }}" alt="" />
     </div>

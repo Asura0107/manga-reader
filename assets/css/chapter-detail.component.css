@@ -9,4 +9,19 @@
 
 .divIniziale {
   margin-top: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  img {
+    width: 100%;
+  }
+}
+select {
+  background-color: #c4bbbb;
+  border-radius: 7px;
+}
+
+button {
+  background-color: #c4bbbb;
+  border-radius: 7px;
 }/*# sourceMappingURL=chapter-detail.component.css.map */

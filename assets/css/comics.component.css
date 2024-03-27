@@ -33,7 +33,8 @@
 }
 
 select {
-  background-color: #8a8282;
+  background-color: #c4bbbb;
+  border-radius: 7px;
 }
 
 hr {
@@ -41,7 +42,7 @@ hr {
 }
 
 button {
-  background-color: #8a8282;
+  background-color: #c4bbbb;
 }
 
 @media screen and (max-width: 993px) {

@@ -15,6 +15,7 @@ export class ChapterDetailComponent implements OnInit {
   chapters: Chapter[] = [];
   panels: Panel[] = [];
   manga!: Manga;
+
   constructor(
     private routeActive: ActivatedRoute,
     private service: ServiceService,
@@ -44,8 +45,32 @@ export class ChapterDetailComponent implements OnInit {
     this.service.getMangaByChapterId(id).subscribe((it) => {
       this.manga = it;
       this.chapters = it.chapters;
-      console.log(it);
+      console.log('this', it);
     });
+  }
+
+  goToNextChapter(): void {
+    const currentIndex = this.chapters.findIndex(
+      (chapter) => chapter.id === this.chapter.id
+    );
+    if (currentIndex < this.chapters.length - 1) {
+      const nextChapterId = this.chapters[currentIndex + 1].id;
+      this.route.navigate(['/chapter', nextChapterId]);
+    } else {
+      console.log('No next chapter available');
+    }
+  }
+
+  goToPreviousChapter(): void {
+    const currentIndex = this.chapters.findIndex(
+      (chapter) => chapter.id === this.chapter.id
+    );
+    if (currentIndex > 0) {
+      const previousChapterId = this.chapters[currentIndex - 1].id;
+      this.route.navigate(['/chapter', previousChapterId]);
+    } else {
+      console.log('No previous chapter available');
+    }
   }
 
   getChapterSingle(event: any) {
