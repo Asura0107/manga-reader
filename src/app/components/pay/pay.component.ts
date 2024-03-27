@@ -109,4 +109,8 @@ export class PayComponent implements OnInit {
         console.log(this.utente.points + point);
       });
   }
+
+  goprofile() {
+    this.router.navigate(['/profile']);
+  }
 }
