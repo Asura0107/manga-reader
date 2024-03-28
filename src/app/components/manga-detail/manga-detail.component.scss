@@ -1,0 +1,136 @@
+.banner {
+  background-color: #222222;
+  margin-top: 100px;
+  //   height: 100%;
+  p {
+    text-align: left;
+  }
+  h3 {
+    text-align: left;
+  }
+  img {
+    width: 230px;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  button {
+    background-color: #d7ee65;
+    border-radius: 10px;
+  }
+  svg {
+    color: black;
+  }
+}
+.like {
+  svg {
+    color: red;
+  }
+}
+.firstDiv {
+  flex-direction: column;
+}
+.genre {
+  color: rgb(149, 152, 142);
+}
+.summary {
+  color: rgb(149, 152, 142);
+}
+.secondDiv {
+  background-color: #222222;
+  margin-top: 100px;
+  //   max-width: 320px;
+  text-align: left;
+  height: 100%;
+}
+.secondDiv img {
+  width: 80px;
+  height: 120px;
+}
+.chapter {
+  background-color: #222222;
+
+  .chapterScroll {
+    height: 300px;
+    overflow: auto;
+    div div {
+      border: solid 1px #9b9d9e;
+      border-radius: 10px;
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+  #staticBackdrop {
+    div {
+      border: 0px;
+    }
+  }
+
+  .chapterTitle {
+    justify-content: space-between;
+
+    p {
+      color: white;
+    }
+  }
+}
+.comments {
+  background-color: #222222;
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .leaveComment {
+    width: 100%;
+    label {
+      color: rgb(166, 162, 162);
+    }
+  }
+}
+.recupera {
+  hr {
+    border: solid 1px white;
+  }
+}
+.commentosingle {
+  svg {
+    color: rgb(166, 162, 162);
+  }
+}
+hr {
+  color: white;
+}
+img {
+  object-fit: cover;
+}
+svg {
+  color: white;
+}
+h5 {
+  text-align: left;
+  color: white;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 1px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    h3 {
+      text-align: center;
+    }
+  }
+}
+@media screen and (max-width: 993px) {
+  .rowPrincipale {
+    flex-direction: column;
+  }
+}

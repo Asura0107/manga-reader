@@ -1,0 +1,48 @@
+<div class="d-flex p-3 p-lg-0">
+  <img
+    src="../../../assets/_84e48473-5b48-4d10-9be3-6a18a409b958.jpg"
+    alt=""
+    class="principale"
+  />
+  <div class="container rounded layer">
+    <form #form="ngForm" (ngSubmit)="accedi(form)" class="mt-2 mb-2">
+      <h2 class="mb-4 mt-2 text-white">Login</h2>
+      <div class="form-group w-100">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
+          required
+          class="form-control mb-3"
+          ngModel
+        />
+      </div>
+      <div class="form-group w-100">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="password"
+          required
+          class="form-control"
+          ngModel
+        />
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary mt-3 w-100"
+        [disabled]="form.invalid"
+      >
+        Accedi
+      </button>
+    </form>
+    <hr />
+    <div class="d-flex text-white justify-content-center mb-3">
+      <p>Non sei ancora registrato?</p>
+      <a [routerLink]="['/register']" routerLinkActive="active" class="ms-2"
+        >Sign up</a
+      >
+    </div>
+  </div>
+</div>

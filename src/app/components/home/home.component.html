@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="d-flex rowPrincipale row">
+    <div class="d-flex firstDiv col col-lg-8">
+      <div class="banner d-flex">
+        <img
+          src="{{ first.cover }}"
+          alt="manga img"
+          class="p-3"
+          (click)="getSingleManga(first.id)"
+        />
+        <div>
+          <div class="text-white p-3">
+            <h3 class="mb-2" (click)="getSingleManga(first.id)">
+              {{ first.title }}
+            </h3>
+            <div>
+              <p>Summary</p>
+              <p>{{ first.description }}</p>
+            </div>
+            <div class="d-flex">
+              <p class="genre me-2">Genre:</p>
+              <p class="text-white">{{ first.genre }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="popular mt-4">
+        <h4 class="text-white mt-2 container">Too good to miss</h4>
+        <hr />
+        <div class="row container">
+          <div *ngFor="let popular of popular" class="col-6 col-md-4 col-lg-3">
+            <img
+              src="{{ popular.cover }}"
+              alt="manga img"
+              (click)="getSingleManga(popular.id)"
+            />
+            <div class="text-start">
+              <p class="text-white mt-2" (click)="getSingleManga(popular.id)">
+                {{ popular.title }}
+              </p>
+              <div class="d-flex">
+                <p class="genre me-2">Genre:</p>
+                <p class="text-white">{{ popular.genre }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reccomended mt-4">
+        <h4 class="text-white mt-2 container">Reccomended</h4>
+        <hr />
+        <div class="row container">
+          <div
+            *ngFor="let reccomended of reccomended"
+            class="col col-md-5 col-lg-6 d-flex"
+          >
+            <img
+              src="{{ reccomended.cover }}"
+              alt="manga img"
+              class="p-2"
+              (click)="getSingleManga(reccomended.id)"
+            />
+            <div class="text-start">
+              <p
+                class="text-white mt-2"
+                (click)="getSingleManga(reccomended.id)"
+              >
+                {{ reccomended.title }}
+              </p>
+              <div>
+                <ul>
+                  <li
+                    *ngFor="let chapter of chaptersByManga[reccomended.title]"
+                    class="chapter"
+                  >
+                    <span (click)="getChapterSingle(chapter.id)">{{
+                      chapter.title
+                    }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="secondDiv container text-white col col-lg-3">
+      <h4 class="mt-2 p-2">Top</h4>
+      <hr />
+      <div *ngFor="let second of second" class="d-flex mb-4">
+        <img
+          src="{{ second.cover }}"
+          alt=""
+          class="p-2"
+          (click)="getSingleManga(second.id)"
+        />
+        <div class="p-2">
+          <p class="title" (click)="getSingleManga(second.id)">
+            {{ second.title }}
+          </p>
+          <div class="d-flex">
+            <p class="genre me-2">Genre:</p>
+            <p class="text-white">{{ second.genre }}</p>
+          </div>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+.banner {
+  background-color: #222222;
+  cursor: pointer;
+
+  margin-top: 100px;
+  height: 100%;
+  p {
+    text-align: left;
+  }
+  h3 {
+    text-align: left;
+  }
+  img {
+    width: 230px;
+    height: auto;
+  }
+  button {
+    background-color: #d7ee65;
+    border-radius: 30px;
+    // width: 100px;
+    // height: 50px;
+  }
+}
+.firstDiv {
+  flex-direction: column;
+}
+
+.secondDiv {
+  background-color: #222222;
+  cursor: pointer;
+
+  margin-top: 100px;
+  // max-width: 320px;
+  text-align: left;
+  height: 100%;
+}
+.secondDiv img {
+  width: 80px;
+  height: 120px;
+  object-fit: cover;
+}
+.popular {
+  background-color: #222222;
+  cursor: pointer;
+
+  h4 {
+    text-align: left;
+  }
+  img {
+    width: 100%;
+    height: 230px;
+  }
+}
+.reccomended {
+  background-color: #222222;
+  cursor: pointer;
+
+  h4 {
+    text-align: left;
+  }
+  img {
+    width: 110px;
+    height: auto;
+  }
+}
+.genre {
+  color: rgb(149, 152, 142);
+}
+.title {
+  max-width: 220px;
+  cursor: pointer;
+}
+.chapter {
+  color: rgb(149, 152, 142);
+  margin-bottom: 2px;
+}
+hr {
+  color: white;
+}
+img {
+  object-fit: cover;
+}
+@media screen and (max-width: 993px) {
+  .rowPrincipale {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 576px) {
+  .banner {
+    img {
+      width: 120px;
+      height: 160px;
+    }
+  }
+}

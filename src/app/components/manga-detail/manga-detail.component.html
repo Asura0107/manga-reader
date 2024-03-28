@@ -1,0 +1,274 @@
+<div class="container">
+  <div class="d-flex rowPrincipale row">
+    <div class="d-flex firstDiv col col-lg-8">
+      <div class="banner d-md-flex">
+        <div class="d-flex flex-column">
+          <img src="{{ manga.cover }}" alt="manga img" class="p-3" />
+          <button
+            class="m-3"
+            (click)="bookmark()"
+            *ngIf="!isFavorite; else block"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-bookmark me-1"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"
+              />
+            </svg>
+            <span>Bookmark</span>
+          </button>
+          <ng-template #block>
+            <button (click)="unbookmark()" class="m-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-bookmark-fill me-1"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"
+                />
+              </svg>
+              <span>Bookmark</span>
+            </button>
+          </ng-template>
+          <button
+            class="m-3 like"
+            (click)="like()"
+            *ngIf="!isLike; else notlike"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-heart"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"
+              />
+            </svg>
+          </button>
+          <ng-template #notlike>
+            <button class="m-3 like" (click)="dislike()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-heart-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                />
+              </svg>
+            </button>
+          </ng-template>
+        </div>
+        <div class="text-white p-3">
+          <h3 class="mb-2">
+            {{ manga.title }}
+          </h3>
+          <div>
+            <p class="summary">Summary</p>
+            <p>{{ manga.description }}</p>
+          </div>
+          <div class="d-flex">
+            <p class="genre me-2">Genre:</p>
+            <p class="text-white">{{ manga.genre }}</p>
+          </div>
+          <div class="d-flex">
+            <p class="genre me-2">Status:</p>
+            <p class="text-white" *ngIf="manga.id !== 5; else complete">
+              Ongoing
+            </p>
+            <ng-template #complete class="text-white">Complete</ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="chapter mt-4">
+        <h5 class="mt-2 container">Chapter {{ manga.title }}</h5>
+        <hr />
+        <div class="chapterScroll container">
+          <div
+            class="mb-2"
+            *ngFor="let chapter of chapters"
+            (click)="selectedChapterId = chapter.id"
+          >
+            <div
+              *ngIf="chapter.unlocked === true || isUnlocked(chapter.id)"
+              class="chapterTitle p-2"
+              (click)="getChapterSingle(chapter.id)"
+            >
+              <p>{{ chapter.title }}</p>
+            </div>
+            <div
+              *ngIf="chapter.unlocked === false && !isUnlocked(chapter.id)"
+              class="d-flex align-items-baseline chapterTitle p-2"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              <p>{{ chapter.title }}</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-file-lock2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 5a1 1 0 0 1 1 1v1H7V6a1 1 0 0 1 1-1m2 2.076V6a2 2 0 1 0-4 0v1.076c-.54.166-1 .597-1 1.224v2.4c0 .816.781 1.3 1.5 1.3h3c.719 0 1.5-.484 1.5-1.3V8.3c0-.627-.46-1.058-1-1.224"
+                />
+                <path
+                  d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"
+                />
+              </svg>
+            </div>
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="staticBackdrop"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                      Unlocked chapter
+                    </h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body" *ngIf="utente.points >= 10">
+                    Are you sure?
+                  </div>
+                  <div class="modal-body" *ngIf="utente.points < 10">
+                    You don't have enough points
+                  </div>
+                  <div class="modal-footer" *ngIf="utente.points >= 10">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      No
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-bs-dismiss="modal"
+                      (click)="onPatchProfile(selectedChapterId, 10)"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comments mt-4">
+        <h5 class="mt-2 container text-white">Comments</h5>
+        <hr />
+        <div class="container">
+          <div class="d-flex">
+            <img src="{{ utente.avatar }}" alt="avatar" class="me-3" />
+            <form
+              (ngSubmit)="postComment(manga.id)"
+              class="w-100 d-flex flex-column"
+            >
+              <div class="form-floating leaveComment">
+                <textarea
+                  class="form-control"
+                  placeholder="Leave a comment here"
+                  id="floatingTextarea"
+                  [(ngModel)]="content"
+                  #contentComment="ngModel"
+                  name="content"
+                  required
+                ></textarea>
+                <label for="floatingTextarea">Join the discussion...</label>
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <div></div>
+                <button [disabled]="contentComment.invalid">comment</button>
+              </div>
+            </form>
+          </div>
+          <div class="text-white mt-3 recupera">
+            <span>{{ comments.length }} Comments</span>
+            <hr />
+          </div>
+          <div
+            *ngFor="let comment of comments"
+            class="d-flex mb-2 commentosingle"
+          >
+            <img src="{{ comment.avatar }}" alt="avatar" class="me-3" />
+            <div>
+              <div class="d-flex align-items-center">
+                <span class="text-white me-1">{{ comment.username }}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-person-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                  />
+                </svg>
+              </div>
+              <p class="text-white mt-2">{{ comment.content }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="secondDiv container text-white col col-lg-3">
+      <h4 class="mt-2 p-2">Top</h4>
+      <hr />
+      <div *ngFor="let second of second" class="d-flex mb-4">
+        <img
+          src="{{ second.cover }}"
+          alt=""
+          class="p-2"
+          (click)="getSingleManga(second.id)"
+        />
+        <div class="p-2">
+          <p class="title" (click)="getSingleManga(second.id)">
+            {{ second.title }}
+          </p>
+          <div class="d-flex">
+            <p class="genre me-2">Genre:</p>
+            <p class="text-white">{{ second.genre }}</p>
+          </div>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </div>
+</div>
