@@ -5,6 +5,8 @@ import { Panel } from '../models/panel';
 import { ServiceService } from '../service/service.service';
 import { Manga } from '../models/manga';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
+import { AuthService } from 'src/app/auth/service/auth.service';
 @Component({
   selector: 'app-chapter-detail',
   templateUrl: './chapter-detail.component.html',
@@ -15,11 +17,14 @@ export class ChapterDetailComponent implements OnInit {
   chapters: Chapter[] = [];
   panels: Panel[] = [];
   manga!: Manga;
+  utente!: User;
+  unlockedes: Chapter[] = [];
 
   constructor(
     private routeActive: ActivatedRoute,
     private service: ServiceService,
-    private route: Router
+    private route: Router,
+    private authSrv: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +35,18 @@ export class ChapterDetailComponent implements OnInit {
         console.log(retrieved);
         this.getPanel(retrieved.id);
         this.getmangaByChapter(retrieved.id);
+      });
+    });
+    this.getme();
+    this.getUnlocked();
+  }
+  getme() {
+    this.authSrv.getMe().subscribe((it) => {
+      this.utente = it;
+      console.log(this.utente);
+      this.service.getChapterUser(this.utente.id).subscribe((it) => {
+        console.log(it);
+        this.unlockedes = it;
       });
     });
   }
@@ -55,7 +72,13 @@ export class ChapterDetailComponent implements OnInit {
     );
     if (currentIndex < this.chapters.length - 1) {
       const nextChapterId = this.chapters[currentIndex + 1].id;
-      this.route.navigate(['/chapter', nextChapterId]);
+      console.log(this.chapters[currentIndex + 1]);
+      if (
+        this.chapters[currentIndex + 1].unlocked === true ||
+        (this.isUnlocked(this.chapters[currentIndex + 1].id) &&
+          this.chapters[currentIndex + 1].unlocked === false)
+      )
+        this.route.navigate(['/chapter', nextChapterId]);
     } else {
       console.log('No next chapter available');
     }
@@ -86,5 +109,22 @@ export class ChapterDetailComponent implements OnInit {
         console.log(it);
       }
     });
+  }
+
+  getUnlocked() {
+    if (this.utente) {
+      this.service.getChapterUser(this.utente.id).subscribe((it) => {
+        console.log(it);
+        this.unlockedes = it;
+        console.log('it', this.unlockedes);
+      });
+    }
+  }
+
+  isUnlocked(id: number): boolean {
+    if (this.unlockedes) {
+      return this.unlockedes.some((chapter) => chapter.id === id);
+    }
+    return false;
   }
 }
