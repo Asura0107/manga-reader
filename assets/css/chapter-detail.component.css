@@ -24,4 +24,17 @@ select {
 button {
   background-color: #c4bbbb;
   border-radius: 7px;
+}
+
+a {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #c4bbbb;
+  width: 20px;
+  height: 20px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }/*# sourceMappingURL=chapter-detail.component.css.map */

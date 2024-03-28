@@ -61,6 +61,11 @@ export class ChapterDetailComponent implements OnInit {
     }
   }
 
+  scrollToTop(event: Event) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   goToPreviousChapter(): void {
     const currentIndex = this.chapters.findIndex(
       (chapter) => chapter.id === this.chapter.id
