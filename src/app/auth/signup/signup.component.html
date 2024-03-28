@@ -1,82 +1,89 @@
-<div class="container layer d-flex align-items-center rounded">
-  <form #form="ngForm" (ngSubmit)="registra(form)">
-    <h2 class="mb-4 mt-2 text-white">Inserisci i tuoi Dati</h2>
-    <div class="form-group">
-      <input
-        type="text"
-        name="name"
-        id="name"
-        class="form-control mb-4"
-        placeholder="Name"
-        required
-        ngModel
-      />
-      <input
-        type="text"
-        name="surname"
-        id="surname"
-        placeholder="Surname"
-        class="form-control mb-4"
-        required
-        ngModel
-      />
-    </div>
-    <div class="form-group">
-      <input
-        type="username"
-        name="username"
-        id="username"
-        placeholder="Username"
-        required
-        class="form-control mb-4"
-        ngModel
-      />
-    </div>
-    <div class="form-group">
-      <input
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Email"
-        class="form-control mb-4"
-        required
-        ngModel
-      />
-    </div>
-    <div class="form-group">
-      <input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Password"
-        class="form-control mb-4"
-        required
-        ngModel
-      />
-    </div>
-    <div class="form-group">
-      <input
-        type="avatar"
-        name="avatar"
-        id="avatar"
-        placeholder="Avatar"
-        class="form-control mb-4"
-        ngModel
-      />
-    </div>
-    <button
-      type="submit"
-      [disabled]="form.invalid"
-      class="btn btn-primary mt-3"
-    >
-      Registrati
-    </button>
-    <hr />
-    <div class="d-flex text-white justify-content-center mb-3">
-      <p>Sei già registrato?</p>
-      <a [routerLink]="['/login']" routerLinkActive="active" class="ms-2"
-        >Sign in</a
+<div class="d-flex p-3 p-lg-0">
+  <img
+    src="../../../assets/_84e48473-5b48-4d10-9be3-6a18a409b958.jpg"
+    alt=""
+    class="principale"
+  />
+  <div class="container layer d-flex align-items-center rounded">
+    <form #form="ngForm" (ngSubmit)="registra(form)">
+      <h2 class="mb-4 mt-2 text-white">Inserisci i tuoi Dati</h2>
+      <div class="form-group">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control mb-4"
+          placeholder="Name"
+          required
+          ngModel
+        />
+        <input
+          type="text"
+          name="surname"
+          id="surname"
+          placeholder="Surname"
+          class="form-control mb-4"
+          required
+          ngModel
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="username"
+          name="username"
+          id="username"
+          placeholder="Username"
+          required
+          class="form-control mb-4"
+          ngModel
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          class="form-control mb-4"
+          required
+          ngModel
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          class="form-control mb-4"
+          required
+          ngModel
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="avatar"
+          name="avatar"
+          id="avatar"
+          placeholder="Avatar"
+          class="form-control mb-4"
+          ngModel
+        />
+      </div>
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="btn btn-primary mt-3"
       >
-    </div>
-  </form>
+        Registrati
+      </button>
+      <hr />
+      <div class="d-flex text-white justify-content-center mb-3">
+        <p>Sei già registrato?</p>
+        <a [routerLink]="['/login']" routerLinkActive="active" class="ms-2"
+          >Sign in</a
+        >
+      </div>
+    </form>
+  </div>
 </div>
