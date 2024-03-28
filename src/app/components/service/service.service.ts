@@ -253,6 +253,11 @@ export class ServiceService {
     return this.http.patch(`${this.apiURL}/users/me`, body, { params });
   }
 
+  patchAvatar(userId: string, body: { avatar: string; points: number }) {
+    const params = new HttpParams().set('userId', userId);
+    return this.http.patch(`${this.apiURL}/users/me`, body, { params });
+  }
+
   //paypal
   postPaypal(data: Partial<Paypal>, userId: string): Observable<Paypal> {
     const headers = new HttpHeaders({

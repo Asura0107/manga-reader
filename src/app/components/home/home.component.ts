@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   reccomended: Manga[] = [];
   utente!: AuthData | null;
   chapter: Chapter[][] = [];
+  chaptersByManga: { [title: string]: Chapter[] } = {};
   titles: string[] = [
     'Return of the Mount Hua Sect',
     'Solo Leveling',
@@ -44,7 +45,10 @@ export class HomeComponent implements OnInit {
     this.service.getAllManga().subscribe((data) => {
       this.reccomended = data;
       this.reccomended.forEach((manga) => {
-        this.getChapter(manga.title);
+        this.service.getChapters(manga.title).subscribe((chapters) => {
+          const first3 = chapters.slice(0, 3);
+          this.chaptersByManga[manga.title] = first3;
+        });
       });
       console.log(this.reccomended);
     });
@@ -69,19 +73,6 @@ export class HomeComponent implements OnInit {
         console.log(this.popular);
       });
     });
-  }
-  getChapter(title: string) {
-    this.service.getChapters(title).subscribe((data) => {
-      const first3 = data.slice(0, 3);
-      this.chapter.push(first3);
-      console.log(data.slice(0, 3));
-    });
-  }
-  getFirstThreeChapters(manga: Manga): Chapter[] {
-    const index = this.reccomended.findIndex(
-      (item) => item.title === manga.title
-    );
-    return this.chapter[index];
   }
 
   getSingleManga(id: number) {

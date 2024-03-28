@@ -20,4 +20,15 @@
       margin: auto;
     }
   }
+  .change {
+    position: absolute;
+    bottom: 14px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+    right: 12px;
+  }
 }

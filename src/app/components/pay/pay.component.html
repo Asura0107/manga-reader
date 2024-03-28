@@ -62,13 +62,17 @@
     </div>
 
     <div class="form-group">
-      <input
-        type="text"
-        class="form-control mb-4"
-        [value]="amountText"
-        readonly
-        placeholder="amount"
-      />
+      <div class="input-group mb-4">
+        <span class="input-group-text">$</span>
+        <input
+          type="text"
+          class="form-control"
+          [value]="amountText"
+          readonly
+          placeholder="amount"
+        />
+        <span class="input-group-text">.00</span>
+      </div>
       <input
         type="email"
         name="emailPaypal"
@@ -126,13 +130,17 @@
     </div>
 
     <div class="form-group">
-      <input
-        type="text"
-        class="form-control mb-4"
-        [value]="amountText"
-        readonly
-        placeholder="amount"
-      />
+      <div class="input-group mb-4">
+        <span class="input-group-text">$</span>
+        <input
+          type="text"
+          class="form-control"
+          [value]="amountText"
+          readonly
+          placeholder="amount"
+        />
+        <span class="input-group-text">.00</span>
+      </div>
       <input
         type="email"
         name="numeroCarta"
@@ -195,7 +203,7 @@
       </div>
       <div class="modal-body">Thanks for your purchase</div>
 
-      <div class="modal-footer" *ngIf="utente.points >= 10">
+      <div class="modal-footer">
         <button
           type="button"
           (click)="goprofile()"

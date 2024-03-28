@@ -70,7 +70,7 @@
               <div>
                 <ul>
                   <li
-                    *ngFor="let chapter of getFirstThreeChapters(reccomended)"
+                    *ngFor="let chapter of chaptersByManga[reccomended.title]"
                     class="chapter"
                   >
                     <span (click)="getChapterSingle(chapter.id)">{{

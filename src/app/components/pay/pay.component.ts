@@ -16,7 +16,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./pay.component.scss'],
 })
 export class PayComponent implements OnInit {
-  amountText!: string;
+  amountText!: number;
   isAmountReadonly!: boolean;
   selectedValue!: number;
   utente!: User;
@@ -29,6 +29,7 @@ export class PayComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedValue;
+    this.amountText = 0;
     this.getme();
   }
 
@@ -43,19 +44,19 @@ export class PayComponent implements OnInit {
     const value = parseInt(event.target.value);
     if (value === 10) {
       this.selectedValue = 10;
-      this.amountText = '2.0';
+      this.amountText = 2.0;
     } else if (value === 50) {
       this.selectedValue = 50;
-      this.amountText = '10.0';
+      this.amountText = 10.0;
     } else if (value === 100) {
       this.selectedValue = 100;
-      this.amountText = '20.0';
+      this.amountText = 20.0;
     }
   }
 
   postPaypal(form: NgForm) {
     const data = {
-      amount: this.selectedValue,
+      amount: this.amountText,
       emailPaypal: form.value.emailPaypal,
       passwordPaypal: form.value.passwordPaypal,
     };
@@ -74,7 +75,7 @@ export class PayComponent implements OnInit {
 
   posCard(form: NgForm) {
     const data = {
-      amount: this.selectedValue,
+      amount: this.amountText,
       numeroCarta: form.value.numeroCarta,
       scadenza: form.value.scadenza,
       cvv: form.value.cvv,
