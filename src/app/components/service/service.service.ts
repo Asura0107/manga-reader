@@ -22,6 +22,7 @@ export class ServiceService {
   currentPage = 0;
   pageFavorite = 0;
   currentChapter = null;
+  currentPageGenre = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -94,6 +95,42 @@ export class ServiceService {
     return this.http
       .get<Page<Manga>>(`${this.apiURL}/manga/genre`, { params })
       .pipe(map((list) => list.content));
+  }
+
+  nextGenre(page: number, genre: string): Observable<Manga[]> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('genre', genre);
+    this.currentPage = page + 1; // Memorizza la pagina corrente
+    return this.http
+      .get<Page<Manga>>(`${this.apiURL}/manga/genre`, { params })
+      .pipe(map((list) => list.content));
+  }
+
+  previousGenre(page: number, genre: string): Observable<Manga[]> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('genre', genre);
+    this.currentPage = page - 1; // Memorizza la pagina corrente
+    return this.http
+      .get<Page<Manga>>(`${this.apiURL}/manga/genre`, { params })
+      .pipe(map((list) => list.content));
+  }
+
+  existNextPageGenre(): Observable<boolean> {
+    return this.http.get<Page<Manga>>(`${this.apiURL}/manga/genre`).pipe(
+      map((list) => {
+        return list.number > this.currentPage + 1;
+      })
+    );
+  }
+
+  existPreviousPageGenre(): Observable<boolean> {
+    return this.http.get<Page<Manga>>(`${this.apiURL}/manga/genre`).pipe(
+      map((list) => {
+        return 0 < this.currentPage - 1;
+      })
+    );
   }
 
   getMangaRandom() {

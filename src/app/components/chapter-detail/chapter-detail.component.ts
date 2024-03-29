@@ -105,8 +105,13 @@ export class ChapterDetailComponent implements OnInit {
     const selectedChapterId = event.target.value;
     this.service.getChapterSingolo(selectedChapterId).subscribe((it) => {
       if (it) {
-        this.route.navigate(['/chapter', selectedChapterId]);
-        console.log(it);
+        if (
+          it.unlocked === true ||
+          (this.isUnlocked(it.id) && it.unlocked === false)
+        ) {
+          this.route.navigate(['/chapter', selectedChapterId]);
+          console.log(it);
+        }
       }
     });
   }

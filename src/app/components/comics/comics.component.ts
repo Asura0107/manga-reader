@@ -16,8 +16,12 @@ export class ComicsComponent implements OnInit {
   all: Manga[] = [];
   second: Manga[] = [];
   currentPage: number = 0;
+  currentPageGenre: number = 0;
   page!: Page<Manga>;
   nextPage = this.currentPage + 1;
+  nextPageGenre = this.currentPageGenre + 1;
+  showAllMode: boolean = true;
+  genre!: string;
 
   constructor(
     private service: ServiceService,
@@ -50,6 +54,24 @@ export class ComicsComponent implements OnInit {
       this.existPrevious();
     });
   }
+  nextGenre() {
+    this.service
+      .nextGenre(this.currentPageGenre, this.genre)
+      .subscribe((data) => {
+        this.currentPageGenre = this.nextPageGenre;
+        this.all = data;
+        this.existNext();
+      });
+  }
+
+  previousGenre() {
+    const previousPage = this.currentPageGenre - 1;
+    this.service.previousGenre(previousPage, this.genre).subscribe((data) => {
+      this.currentPageGenre = previousPage;
+      this.all = data;
+      this.existPrevious();
+    });
+  }
   existNext(): Observable<boolean> {
     return this.service.existNextPage().pipe(
       map((data) => {
@@ -72,6 +94,28 @@ export class ComicsComponent implements OnInit {
       }
     });
   }
+  existNextGenre(): Observable<boolean> {
+    return this.service.existNextPageGenre().pipe(
+      map((data) => {
+        if (data) {
+          console.log('Esiste una pagina successiva');
+          return true;
+        } else {
+          console.log('Non esiste una pagina successiva');
+          return false;
+        }
+      })
+    );
+  }
+  existPreviousGenre() {
+    this.service.existNextPageGenre().subscribe((data) => {
+      if (data) {
+        console.log('Esiste una pagina precedente');
+      } else {
+        console.log('Non esiste una pagina precedente');
+      }
+    });
+  }
   getTop() {
     this.service.getTopFive().subscribe((manga) => {
       // console.log(manga);
@@ -86,10 +130,19 @@ export class ComicsComponent implements OnInit {
   }
 
   getByGenre(event: any) {
-    const selectedGenre = event.target.value;
-    this.service.getMangaByGenre(selectedGenre).subscribe((it) => {
+    this.genre = event.target.value;
+    this.service.getMangaByGenre(this.genre).subscribe((it) => {
       this.all = it;
       console.log(it);
     });
+    this.showAllMode = false;
+  }
+
+  switchToAll() {
+    this.showAllMode = true;
+  }
+
+  switchToGenre() {
+    this.showAllMode = false;
   }
 }
