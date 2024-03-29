@@ -120,7 +120,7 @@ export class ServiceService {
   existNextPageGenre(): Observable<boolean> {
     return this.http.get<Page<Manga>>(`${this.apiURL}/manga/genre`).pipe(
       map((list) => {
-        return list.number > this.currentPage + 1;
+        return list.number > this.currentPageGenre + 1;
       })
     );
   }
@@ -128,7 +128,7 @@ export class ServiceService {
   existPreviousPageGenre(): Observable<boolean> {
     return this.http.get<Page<Manga>>(`${this.apiURL}/manga/genre`).pipe(
       map((list) => {
-        return 0 < this.currentPage - 1;
+        return 0 < this.currentPageGenre - 1;
       })
     );
   }
