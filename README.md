@@ -1,5 +1,22 @@
 # MangaReader
 
+This project was designed for manga enthusiasts. Here's a breakdown of the sections on the home page:
+
+Banner: Highlights selected series.
+Popular: Shows series chosen by moderators based on users reactions in the comment section.
+Recommended: Suggests series based on various factors.
+Top: Displays series selected based on the number of likes.
+
+Other features include:
+
+Profile: View your information, including points needed to unlock certain chapters.
+My List: Save your favorite series.
+Comics: Browse through all available series.
+Chapter Detail: View chapters along with their panels.
+Manga Detail: Read a summary, bookmark and like manga, and leave comments.
+API: http://localhost:4201
+Database: Local PostgreSQL
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
 
 ## Development server
