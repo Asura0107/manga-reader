@@ -18,7 +18,26 @@
           ngModel
         />
       </div>
-      <div class="form-group w-100">
+      <div class="form-group w-100" *ngIf="!passErr">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="password"
+          required
+          class="form-control"
+          ngModel
+        />
+      </div>
+      <div
+        class="form-group w-100"
+        *ngIf="passErr"
+        style="
+          border: 2px solid red;
+          border-radius: 7px;
+          box-shadow: 0 0 9px 4px red;
+        "
+      >
         <input
           type="password"
           id="password"

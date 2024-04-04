@@ -97,6 +97,7 @@
       class="btn btn-primary"
       data-bs-toggle="modal"
       data-bs-target="#staticBackdrop"
+      [disabled]="form.invalid"
     >
       Submit
     </button>
@@ -174,6 +175,7 @@
       class="btn btn-primary"
       data-bs-toggle="modal"
       data-bs-target="#staticBackdrop"
+      [disabled]="formCard.invalid"
     >
       Submit
     </button>

@@ -11,6 +11,7 @@ import { User } from 'src/app/components/models/user';
 })
 export class LoginComponent implements OnInit {
   utente!: User;
+  passErr!: boolean;
   constructor(
     private authSrv: AuthService,
     private router: Router,
@@ -18,22 +19,25 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
   accedi(form: NgForm) {
     console.log(form.value);
-    try {
-      this.authSrv.login(form.value).subscribe(() => {
+    this.authSrv.login(form.value).subscribe(
+      () => {
         this.authSrv.getMe().subscribe((user) => {
           this.utente = user;
           this.onPatchProfile(10);
           this.router.navigate(['/']);
         });
-      });
-    } catch (err) {
-      alert('Login errato!');
-      console.log(err);
-      this.router.navigate(['/login']);
-    }
+      },
+      (err) => {
+        this.passErr = true;
+        console.log(err);
+        this.router.navigate(['/login']);
+      }
+    );
   }
+
   creaaccount() {
     this.router.navigate(['/register']);
   }
